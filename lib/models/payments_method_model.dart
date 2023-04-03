@@ -46,7 +46,8 @@ class PaymentMethods {
 
   String toJson() => json.encode(toMap());
 
-  factory PaymentMethods.fromJson(String source) => PaymentMethods.fromMap(json.decode(source));
+  factory PaymentMethods.fromJson(String source) =>
+      PaymentMethods.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -56,19 +57,16 @@ class PaymentMethods {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is PaymentMethods &&
-      other.id == id &&
-      other.name == name &&
-      other.image == image &&
-      other.isSelected == isSelected;
+        other.id == id &&
+        other.name == name &&
+        other.image == image &&
+        other.isSelected == isSelected;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-      name.hashCode ^
-      image.hashCode ^
-      isSelected.hashCode;
+    return id.hashCode ^ name.hashCode ^ image.hashCode ^ isSelected.hashCode;
   }
 }

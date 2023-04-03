@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:developer';
 
@@ -35,10 +35,10 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               'Price Details',
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    color: Color.fromARGB(255, 31, 102, 159),
-                    fontSize: 20,
-                  ),
+              // style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              //       color: Color.fromARGB(255, 31, 102, 159),
+              //       fontSize: 20,
+              //     ),
             ),
           ),
           Padding(
@@ -59,13 +59,13 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                       children: [
                         Text(
                           'Subtotal',
-                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                                color: GlobalVariables.primaryColor,
-                              ),
+                          // style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          //       color: GlobalVariables.primaryColor,
+                          //     ),
                         ),
                         Text(
                           'RM ${ctrl.orders.totalAmount}',
-                          style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
+                          // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
                         ),
                       ],
                     ),
@@ -79,14 +79,14 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                           padding: const EdgeInsets.symmetric(vertical: 6),
                           child: Text(
                             'Rider Fee',
-                            style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                                  color: GlobalVariables.primaryColor,
-                                ),
+                            // style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            //       color: GlobalVariables.primaryColor,
+                            //     ),
                           ),
                         ),
                         Text(
                           'RM 10',
-                          style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
+                          // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
                         ),
                       ],
                     ),
@@ -101,13 +101,13 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                       children: [
                         Text(
                           'Total',
-                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                                color: GlobalVariables.primaryColor,
-                              ),
+                          // style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          //       color: GlobalVariables.primaryColor,
+                          //     ),
                         ),
                         Text(
                           'RM ${ctrl.orders.totalAmount.value + 10}',
-                          style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
+                          // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
                         ),
                       ],
                     ),
@@ -120,10 +120,10 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               'Schedule Date',
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    color: Color.fromARGB(255, 31, 102, 159),
-                    fontSize: 20,
-                  ),
+              // style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              //       color: Color.fromARGB(255, 31, 102, 159),
+              //       fontSize: 20,
+              //     ),
             ),
           ),
           Padding(
@@ -146,8 +146,10 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                         minTime: DateTime.now().add(const Duration(hours: 1)),
                         maxTime: DateTime.now().add(const Duration(days: 10)),
                         theme: DatePickerTheme(
-                          doneStyle: TextStyle(color: GlobalVariables.primaryColor),
-                          itemStyle: TextStyle(color: GlobalVariables.primaryColor),
+                          doneStyle:
+                              TextStyle(color: GlobalVariables.primaryColor),
+                          itemStyle:
+                              TextStyle(color: GlobalVariables.primaryColor),
                           cancelStyle: TextStyle(color: Colors.red),
                           // headerColor: GlobalVariables.primaryColor,
                         ),
@@ -167,13 +169,14 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                           padding: const EdgeInsets.all(7),
                           child: Text(
                             'Pickup Time',
-                            style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
+                            // style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
                           ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            SvgPicture.asset('lib/assets/calendar_add.svg', height: 35),
+                            SvgPicture.asset('lib/assets/calendar_add.svg',
+                                height: 35),
                             SizedBox(
                               width: 20,
                             ),
@@ -183,14 +186,16 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                 Obx(
                                   () => Text(
                                     // 'Thu,1 Apr',
-                                    DateFormat.MMMEd().format(ctrl.pickUpTime.value),
-                                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black),
+                                    DateFormat.MMMEd()
+                                        .format(ctrl.pickUpTime.value),
+                                    // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black),
                                   ),
                                 ),
                                 Obx(
                                   () => Text(
-                                    DateFormat.jm().format(ctrl.pickUpTime.value),
-                                    style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
+                                    DateFormat.jm()
+                                        .format(ctrl.pickUpTime.value),
+                                    // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
                                   ),
                                 )
                               ],
@@ -209,8 +214,10 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                         minTime: ctrl.pickUpTime.value,
                         maxTime: ctrl.pickUpTime.value.add(Duration(days: 2)),
                         theme: DatePickerTheme(
-                          doneStyle: TextStyle(color: GlobalVariables.primaryColor),
-                          itemStyle: TextStyle(color: GlobalVariables.primaryColor),
+                          doneStyle:
+                              TextStyle(color: GlobalVariables.primaryColor),
+                          itemStyle:
+                              TextStyle(color: GlobalVariables.primaryColor),
                           cancelStyle: TextStyle(color: Colors.red),
                           // headerColor: GlobalVariables.primaryColor,
                         ),
@@ -227,13 +234,14 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                           padding: const EdgeInsets.all(7),
                           child: Text(
                             'Delivery Time',
-                            style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
+                            // style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
                           ),
                         ),
                         Row(
                           children: [
                             // Image.asset('lib/assets/calendar_check.png'),
-                            SvgPicture.asset('lib/assets/calendar_check.svg', height: 35),
+                            SvgPicture.asset('lib/assets/calendar_check.svg',
+                                height: 35),
                             SizedBox(
                               width: 20,
                             ),
@@ -241,14 +249,16 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                               children: [
                                 Obx(
                                   () => Text(
-                                    DateFormat.MMMEd().format(ctrl.deliveryTime.value),
-                                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black),
+                                    DateFormat.MMMEd()
+                                        .format(ctrl.deliveryTime.value),
+                                    // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black),
                                   ),
                                 ),
                                 Obx(
                                   () => Text(
-                                    DateFormat.jm().format(ctrl.deliveryTime.value),
-                                    style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
+                                    DateFormat.jm()
+                                        .format(ctrl.deliveryTime.value),
+                                    // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
                                   ),
                                 )
                               ],
@@ -266,10 +276,10 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               'Payment method',
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    color: Color.fromARGB(255, 31, 102, 159),
-                    fontSize: 20,
-                  ),
+              // style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              //       color: Color.fromARGB(255, 31, 102, 159),
+              //       fontSize: 20,
+              //     ),
             ),
           ),
           Padding(
@@ -303,7 +313,9 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                               },
                             ),
                             title: Text(ctrl.payments[index].name ?? ''),
-                            trailing: SvgPicture.asset(ctrl.payments[index].image ?? '', height: 30),
+                            trailing: SvgPicture.asset(
+                                ctrl.payments[index].image ?? '',
+                                height: 30),
                           );
                         },
                       );
@@ -345,10 +357,10 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               'Address',
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    color: Color.fromARGB(255, 31, 102, 159),
-                    fontSize: 20,
-                  ),
+              // style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              //       color: Color.fromARGB(255, 31, 102, 159),
+              //       fontSize: 20,
+              //     ),
             ),
           ),
           GetBuilder<SheduleController>(
@@ -371,11 +383,11 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                           children: [
                             Text(
                               'Pickup Address',
-                              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
+                              // style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
                             ),
                             Text(
                               ctrl.address.pickup!,
-                              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
+                              // style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
                             )
                           ],
                         ),
@@ -390,11 +402,11 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                         ),
                         Text(
                           'Pickup Address',
-                          style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
+                          // style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
                         ),
                         Text(
                           ctrl.address.pickup!,
-                          style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
+                          // style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
                         )
                       ],
                     ),

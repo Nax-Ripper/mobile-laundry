@@ -34,7 +34,8 @@ class PickupDelivery {
 
   String toJson() => json.encode(toMap());
 
-  factory PickupDelivery.fromJson(String source) => PickupDelivery.fromMap(json.decode(source));
+  factory PickupDelivery.fromJson(String source) =>
+      PickupDelivery.fromMap(json.decode(source));
 
   @override
   String toString() => 'PickupDelivery(pickup: $pickup, delivery: $delivery)';
@@ -42,10 +43,10 @@ class PickupDelivery {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is PickupDelivery &&
-      other.pickup == pickup &&
-      other.delivery == delivery;
+        other.pickup == pickup &&
+        other.delivery == delivery;
   }
 
   @override

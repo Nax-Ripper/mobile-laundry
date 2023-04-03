@@ -57,14 +57,20 @@ class HomePage extends StatelessWidget {
                                       child: Container(
                                         height: 80,
                                         width: 80,
-                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: Colors.white),
                                         child: hCtrl.services[i].assetImage,
                                       ),
                                     ),
                                   ),
                                   Align(
                                     alignment: Alignment.bottomCenter,
-                                    child: Text(hCtrl.services[i].name, style: Theme.of(context).textTheme.displaySmall),
+                                    child: Text(
+                                      hCtrl.services[i].name,
+                                      // style: Theme.of(context).textTheme.displaySmall,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -82,10 +88,10 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Last Orders',
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                        color: Color.fromARGB(255, 31, 102, 159),
-                        fontSize: 20,
-                      ),
+                  // style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  //       color: Color.fromARGB(255, 31, 102, 159),
+                  //       fontSize: 20,
+                  //     ),
                 ),
               ),
               Expanded(
@@ -99,7 +105,8 @@ class HomePage extends StatelessWidget {
                         padding: EdgeInsets.all(8),
                         height: 90,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(244, 214, 212, 212).withOpacity(0.5),
+                          color: Color.fromARGB(244, 214, 212, 212)
+                              .withOpacity(0.5),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -112,23 +119,24 @@ class HomePage extends StatelessWidget {
                               children: [
                                 Text(
                                   'Order #${hCtrl.orders[i].orderId}',
-                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                      ),
+                                  // style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                  //       color: Theme.of(context).primaryColor,
+                                  //     ),
                                 ),
                                 Expanded(
                                   child: Row(
                                     children: [
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             hCtrl.orders[i].startTime,
-                                            style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
+                                            // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
                                           ),
                                           Text(
                                             hCtrl.orders[i].StartDate,
-                                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black.withOpacity(0.6)),
+                                            // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black.withOpacity(0.6)),
                                           ),
                                         ],
                                       ),
@@ -153,15 +161,16 @@ class HomePage extends StatelessWidget {
                                         width: 10,
                                       ),
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             hCtrl.orders[i].endTime,
-                                            style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
+                                            // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
                                           ),
                                           Text(
                                             hCtrl.orders[i].EndDate,
-                                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black.withOpacity(0.6)),
+                                            // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black.withOpacity(0.6)),
                                           ),
                                         ],
                                       ),
@@ -178,9 +187,9 @@ class HomePage extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       'RM ${hCtrl.orders[i].amount}',
-                                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                                            color: Color.fromARGB(255, 173, 16, 69),
-                                          ),
+                                      // style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      //       color: Color.fromARGB(255, 173, 16, 69),
+                                      //     ),
                                     ),
                                   ),
                                 ],
@@ -235,19 +244,20 @@ class BookNowBanner extends StatelessWidget {
                   children: [
                     Text(
                       'Enjoy hassle-free cleaning with our pickup and delivery service!',
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      // style: Theme.of(context).textTheme.headlineMedium,
                       softWrap: true,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor.withOpacity(1),
+                        backgroundColor:
+                            Theme.of(context).primaryColor.withOpacity(1),
                       ),
                       onPressed: () {},
                       child: Text(
                         'Book Now',
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.white),
+                        // style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.white),
                       ),
                     ),
                   ],
@@ -260,5 +270,3 @@ class BookNowBanner extends StatelessWidget {
     );
   }
 }
-
-

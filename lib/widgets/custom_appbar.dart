@@ -18,8 +18,16 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         // ignore: prefer_const_literals_to_create_immutables
         children: [
-          Text('CURRENT LOCATION', style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 17)),
-          Text('UTM,JB', style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 16)),
+          Text('CURRENT LOCATION',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(fontSize: 17)),
+          Text('UTM,JB',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(fontSize: 16)),
         ],
       ),
     );

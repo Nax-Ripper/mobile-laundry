@@ -58,7 +58,8 @@ class LastOrders {
 
   String toJson() => json.encode(toMap());
 
-  factory LastOrders.fromJson(String source) => LastOrders.fromMap(json.decode(source));
+  factory LastOrders.fromJson(String source) =>
+      LastOrders.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -68,23 +69,23 @@ class LastOrders {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is LastOrders &&
-      other.orderId == orderId &&
-      other.amount == amount &&
-      other.startTime == startTime &&
-      other.endTime == endTime &&
-      other.StartDate == StartDate &&
-      other.EndDate == EndDate;
+        other.orderId == orderId &&
+        other.amount == amount &&
+        other.startTime == startTime &&
+        other.endTime == endTime &&
+        other.StartDate == StartDate &&
+        other.EndDate == EndDate;
   }
 
   @override
   int get hashCode {
     return orderId.hashCode ^
-      amount.hashCode ^
-      startTime.hashCode ^
-      endTime.hashCode ^
-      StartDate.hashCode ^
-      EndDate.hashCode;
+        amount.hashCode ^
+        startTime.hashCode ^
+        endTime.hashCode ^
+        StartDate.hashCode ^
+        EndDate.hashCode;
   }
 }

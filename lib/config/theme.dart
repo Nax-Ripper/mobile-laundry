@@ -17,67 +17,67 @@ ThemeData theme() {
         ),
     fontFamily: 'Stick No Bills',
     // ignore: prefer_const_constructors
-    textTheme: TextTheme(
-      // ignore: prefer_const_constructors
-      displayLarge: TextStyle(
-        // ignore: prefer_const_constructors
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 36,
-      ),
-      displayMedium: const TextStyle(
-        // ignore: prefer_const_constructors
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 24,
-      ),
+    // textTheme: TextTheme(
+    //   // ignore: prefer_const_constructors
+    //   displayLarge: TextStyle(
+    //     // ignore: prefer_const_constructors
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.bold,
+    //     fontSize: 36,
+    //   ),
+    //   displayMedium: const TextStyle(
+    //     // ignore: prefer_const_constructors
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.bold,
+    //     fontSize: 24,
+    //   ),
 
-      displaySmall: const TextStyle(
-        // ignore: prefer_const_constructors
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 18,
-      ),
+    //   displaySmall: const TextStyle(
+    //     // ignore: prefer_const_constructors
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.bold,
+    //     fontSize: 18,
+    //   ),
 
-      headlineMedium: const TextStyle(
-        // ignore: prefer_const_constructors
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 16,
-      ),
+    //   headlineMedium: const TextStyle(
+    //     // ignore: prefer_const_constructors
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.bold,
+    //     fontSize: 16,
+    //   ),
 
-      headlineSmall: const TextStyle(
-        // ignore: prefer_const_constructors
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 14,
-      ),
+    //   headlineSmall: const TextStyle(
+    //     // ignore: prefer_const_constructors
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.bold,
+    //     fontSize: 14,
+    //   ),
 
-      titleLarge: const TextStyle(
-        // ignore: prefer_const_constructors
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 14,
-      ),
+    //   titleLarge: const TextStyle(
+    //     // ignore: prefer_const_constructors
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.normal,
+    //     fontSize: 14,
+    //   ),
 
-      bodyLarge: const TextStyle(
-        // ignore: prefer_const_constructors
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 12,
-      ),
-      bodyMedium: const TextStyle(
-        // ignore: prefer_const_constructors
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 10,
-      ),
-      bodySmall: const TextStyle(
-        // ignore: prefer_const_constructors
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        fontSize: 8,
-      ),
-    ),
+    //   bodyLarge: const TextStyle(
+    //     // ignore: prefer_const_constructors
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.normal,
+    //     fontSize: 12,
+    //   ),
+    //   bodyMedium: const TextStyle(
+    //     // ignore: prefer_const_constructors
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.normal,
+    //     fontSize: 10,
+    //   ),
+    //   bodySmall: const TextStyle(
+    //     // ignore: prefer_const_constructors
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.normal,
+    //     fontSize: 8,
+    //   ),
+    // ),
   );
 }

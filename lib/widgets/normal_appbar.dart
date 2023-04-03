@@ -17,13 +17,13 @@ class NormalAppBar extends StatelessWidget with PreferredSizeWidget {
               child: Text(
                 textAlign: TextAlign.center,
                 title,
-                style: Theme.of(context).textTheme.displayMedium!.copyWith(fontWeight: FontWeight.normal),
+                // style: Theme.of(context).textTheme.displayMedium!.copyWith(fontWeight: FontWeight.normal),
               ),
             )
           : Text(
               textAlign: TextAlign.center,
               title,
-              style: Theme.of(context).textTheme.displayMedium!.copyWith(fontWeight: FontWeight.normal),
+              // style: Theme.of(context).textTheme.displayMedium!.copyWith(fontWeight: FontWeight.normal),
             ),
     );
   }

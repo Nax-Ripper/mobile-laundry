@@ -6,10 +6,10 @@ class Place {
   double? latitude;
   double? longitude;
   Place({
-     this.placeId= '',
-     this.name= '',
-     this.latitude,
-     this.longitude,
+    this.placeId = '',
+    this.name = '',
+    this.latitude,
+    this.longitude,
   });
 
   Place copyWith({
@@ -56,19 +56,19 @@ class Place {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is Place &&
-      other.placeId == placeId &&
-      other.name == name &&
-      other.latitude == latitude &&
-      other.longitude == longitude;
+        other.placeId == placeId &&
+        other.name == name &&
+        other.latitude == latitude &&
+        other.longitude == longitude;
   }
 
   @override
   int get hashCode {
     return placeId.hashCode ^
-      name.hashCode ^
-      latitude.hashCode ^
-      longitude.hashCode;
+        name.hashCode ^
+        latitude.hashCode ^
+        longitude.hashCode;
   }
 }

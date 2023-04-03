@@ -5,4 +5,6 @@ class RouteName extends Route {
   static const String homePage = '/';
   static const String locationPage = '/location_screen';
   static const String pickupShedulePage = '/pickUpShedule_screen';
+  static const String adminServiceListPage = '/adminServiceList_screen';
+  static const String addProuctPage = '/addProduct';
 }

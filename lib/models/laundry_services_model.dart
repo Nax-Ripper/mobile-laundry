@@ -64,12 +64,21 @@ class LaundryServices {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LaundryServices && other.id == id && other.name == name && other.imageUrl == imageUrl && other.assetImage == assetImage && other.isSelected == isSelected;
+    return other is LaundryServices &&
+        other.id == id &&
+        other.name == name &&
+        other.imageUrl == imageUrl &&
+        other.assetImage == assetImage &&
+        other.isSelected == isSelected;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ name.hashCode ^ imageUrl.hashCode ^ assetImage.hashCode ^ isSelected.hashCode;
+    return id.hashCode ^
+        name.hashCode ^
+        imageUrl.hashCode ^
+        assetImage.hashCode ^
+        isSelected.hashCode;
   }
 
   // factory LaundryServices.fromMap(Map<String, dynamic> map) {

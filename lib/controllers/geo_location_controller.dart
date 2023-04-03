@@ -32,7 +32,8 @@ class GeoLocationController extends GetxController {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
     }
-    pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    pos = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
 
     log('${pos}');
     Latitude.value = pos.latitude;
@@ -44,14 +45,16 @@ class GeoLocationController extends GetxController {
 
   Future getAutoComplete({String input = ''}) async {
     isPlaceLoading;
-    final String url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=$types&key=$key';
+    final String url =
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=$types&key=$key';
     // final String url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=segamat&types=$types&key=$key';
     var res = await http.get(Uri.parse(url));
     var json = convert.jsonDecode(res.body);
     var result = json['predictions'] as List;
     log('$result');
     isPlaceLoading.value = false;
-    autpCompletePlaces = result.map((places) => PlaceAutoComplete.fromMap(places)).toList();
+    autpCompletePlaces =
+        result.map((places) => PlaceAutoComplete.fromMap(places)).toList();
     update();
 
     log('$autpCompletePlaces');
@@ -61,7 +64,8 @@ class GeoLocationController extends GetxController {
 
   Future getPlace({required String placeId}) async {
     isCurrentLocationLoading.value = true;
-    final String url = 'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key';
+    final String url =
+        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key';
     var res = await http.get(Uri.parse(url));
     var json = convert.jsonDecode(res.body);
     var result = json['result'] as Map<String, dynamic>;

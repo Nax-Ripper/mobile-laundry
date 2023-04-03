@@ -34,18 +34,20 @@ class PlaceAutoComplete {
 
   String toJson() => json.encode(toMap());
 
-  factory PlaceAutoComplete.fromJson(String source) => PlaceAutoComplete.fromMap(json.decode(source));
+  factory PlaceAutoComplete.fromJson(String source) =>
+      PlaceAutoComplete.fromMap(json.decode(source));
 
   @override
-  String toString() => 'PlaceAutoComplete(description: $description, placeId: $placeId)';
+  String toString() =>
+      'PlaceAutoComplete(description: $description, placeId: $placeId)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is PlaceAutoComplete &&
-      other.description == description &&
-      other.placeId == placeId;
+        other.description == description &&
+        other.placeId == placeId;
   }
 
   @override

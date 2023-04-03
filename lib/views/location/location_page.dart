@@ -42,24 +42,33 @@ class LocationPage extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.all(8),
                           height: 300,
-                          color: ctrl.autpCompletePlaces.isNotEmpty ? Colors.black.withOpacity(0.6) : Colors.transparent,
+                          color: ctrl.autpCompletePlaces.isNotEmpty
+                              ? Colors.black.withOpacity(0.6)
+                              : Colors.transparent,
                           child: ListView.builder(
                             itemCount: ctrl.autpCompletePlaces.length,
                             itemBuilder: (context, index) {
                               return ListTile(
                                 title: Text(
                                   ctrl.autpCompletePlaces[index].description,
-                                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall
+                                      ?.copyWith(color: Colors.white),
                                 ),
                                 onTap: () {
-                                  ctrl.getPlace(placeId: ctrl.autpCompletePlaces[index].placeId);
+                                  ctrl.getPlace(
+                                      placeId: ctrl
+                                          .autpCompletePlaces[index].placeId);
                                   if (kDebugMode) {
                                     print(''' latitude: ${ctrl.Latitude.value},
                           longitude: ${ctrl.Longitude.value},''');
                                   }
 
-                                  ctrl.Latitude.value = ctrl.place.latitude ?? ctrl.Latitude.value;
-                                  ctrl.Longitude.value = ctrl.place.longitude ?? ctrl.Longitude.value;
+                                  ctrl.Latitude.value = ctrl.place.latitude ??
+                                      ctrl.Latitude.value;
+                                  ctrl.Longitude.value = ctrl.place.longitude ??
+                                      ctrl.Longitude.value;
                                   ctrl.autpCompletePlaces = [];
                                   ctrl.update();
                                 },
@@ -78,12 +87,16 @@ class LocationPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 70),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor.withOpacity(1),
+                          backgroundColor:
+                              Theme.of(context).primaryColor.withOpacity(1),
                         ),
                         onPressed: () => {},
                         child: Text(
                           'Save',
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(color: Colors.white),
                         ),
                       ),
                     ),

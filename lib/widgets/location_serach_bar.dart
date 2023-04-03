@@ -18,7 +18,8 @@ class LocationSearchBar extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: Colors.white),
@@ -29,7 +30,9 @@ class LocationSearchBar extends StatelessWidget {
               ),
               filled: true,
               fillColor: Colors.white,
-              hintText: ctrl.isCurrentLocationLoading.value ? 'Loading...' : 'Enter your Location',
+              hintText: ctrl.isCurrentLocationLoading.value
+                  ? 'Loading...'
+                  : 'Enter your Location',
               suffixIcon: Icon(
                 Icons.search_rounded,
               ),

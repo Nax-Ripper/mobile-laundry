@@ -10,22 +10,24 @@ import 'package:mobile_laundry/controllers/order_list_controller.dart';
 import 'package:mobile_laundry/routes/route_name.dart';
 import 'package:mobile_laundry/widgets/normal_appbar.dart';
 
-class OrderListPage extends StatelessWidget {
+class OrderListPage extends StatefulWidget {
   const OrderListPage({super.key});
 
   @override
+  State<OrderListPage> createState() => _OrderListPageState();
+}
+
+class _OrderListPageState extends State<OrderListPage> {
+  @override
   Widget build(BuildContext context) {
-    void displayPersistentBottomSheet() {
-      Scaffold.of(context).showBottomSheet<void>((BuildContext context) {
-        return Container(
-          color: Colors.amber,
-          height: 200, // 👈 Change this according to your need
-          child: const Center(child: Text("Image Filter Here")),
-        );
-      });
+    OrderListController ctrl = Get.put(OrderListController(), permanent: true);
+
+    @override
+    void initState() {
+      super.initState();
+      ctrl.getMenuItemList();
     }
 
-    OrderListController ctrl = Get.put(OrderListController(), permanent: true);
     return GetBuilder<OrderListController>(
       // init: Get.put(OrderListController(), permanent: true),
       // init: OrderListController(),
@@ -76,10 +78,10 @@ class OrderListPage extends StatelessWidget {
                                 child: Text(
                                   ctrl.services[i].name,
                                   textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                                        color: ctrl.services[i].isSelected == true ? Colors.white : GlobalVariables.primaryColor,
-                                        fontWeight: FontWeight.normal,
-                                      ),
+                                  // style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                  //       color: ctrl.services[i].isSelected == true ? Colors.white : GlobalVariables.primaryColor,
+                                  //       fontWeight: FontWeight.normal,
+                                  //     ),
                                 ),
                               ),
                             ),
@@ -92,7 +94,7 @@ class OrderListPage extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: ctrl.items.length,
+                  itemCount: ctrl.products.length,
                   itemBuilder: (context, i) {
                     return Padding(
                       padding: const EdgeInsets.all(10),
@@ -108,22 +110,23 @@ class OrderListPage extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  ctrl.items[i].image,
+                                  Image.network(ctrl.products[i].images[0]),
                                   SizedBox(width: 15),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        ctrl.items[i].name,
-                                        style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
+                                        ctrl.products[i].name,
+                                        // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
                                       ),
                                       Text(
-                                        'RM ${ctrl.items[i].price}',
-                                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                              color: Color.fromARGB(255, 173, 16, 69),
-                                              fontFamily: 'Futura',
-                                            ),
+                                        'RM ${double.parse(ctrl.products[i].price.toString()).toStringAsFixed(2)}',
+
+                                        // style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                        //       color: Color.fromARGB(255, 173, 16, 69),
+                                        //       fontFamily: 'Futura',
+                                        //     ),
                                       ),
                                     ],
                                   ),
@@ -136,11 +139,11 @@ class OrderListPage extends StatelessWidget {
                                       if (ctrl.totalQty.value > 0) {
                                         ctrl.totalQty.value--;
                                       }
-                                      if (ctrl.items[i].quantity > 0) {
-                                        ctrl.items[i].quantity--;
+                                      if (ctrl.products[i].quantity! > 0) {
+                                        ctrl.products[i].quantity = ctrl.products[i].quantity! - 1;
                                       }
                                       if (ctrl.totalAmount.value > 0.0) {
-                                        ctrl.totalAmount.value -= ctrl.items[i].price;
+                                        ctrl.totalAmount.value -= ctrl.products[i].price;
                                       }
 
                                       if (ctrl.totalQty.value == 0) ctrl.isVisible.value = false;
@@ -158,15 +161,16 @@ class OrderListPage extends StatelessWidget {
                                   ),
                                   SizedBox(width: 10),
                                   Text(
-                                    '${ctrl.items[i].quantity}',
-                                    style: Theme.of(context).textTheme.displayMedium!.copyWith(color: GlobalVariables.primaryColor),
+                                    '${ctrl.products[i].quantity}',
+                                    // style: Theme.of(context).textTheme.displayMedium!.copyWith(color: GlobalVariables.primaryColor),
                                   ),
                                   SizedBox(width: 10),
                                   InkWell(
                                     onTap: () {
                                       ctrl.totalQty.value++;
-                                      ctrl.items[i].quantity++;
-                                      ctrl.totalAmount.value += ctrl.items[i].price;
+                                      // ctrl.products[i].quantity++;
+                                      ctrl.products[i].quantity = ctrl.products[i].quantity! + 1;
+                                      ctrl.totalAmount.value += ctrl.products[i].price;
                                       if (ctrl.totalQty.value > 0) ctrl.isVisible.value = true;
                                       ctrl.update();
                                     },
@@ -226,11 +230,11 @@ class OrderListPage extends StatelessWidget {
                                   children: [
                                     Text(
                                       'Total',
-                                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: GlobalVariables.primaryColor.withOpacity(0.6)),
+                                      // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: GlobalVariables.primaryColor.withOpacity(0.6)),
                                     ),
                                     Text(
                                       '${ctrl.totalQty.value} items',
-                                      style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
+                                      // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
                                     ),
                                   ],
                                 ),
@@ -243,14 +247,14 @@ class OrderListPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Cost',
-                                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: GlobalVariables.primaryColor.withOpacity(0.6)),
+                                    // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: GlobalVariables.primaryColor.withOpacity(0.6)),
                                   ),
                                   Text(
-                                    'RM ${ctrl.totalAmount}',
-                                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                          color: Color.fromARGB(255, 173, 16, 69),
-                                          fontFamily: 'Futura',
-                                        ),
+                                    'RM ${double.parse(ctrl.totalAmount.toString()).toStringAsFixed(2)}',
+                                    // style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                    //       color: Color.fromARGB(255, 173, 16, 69),
+                                    //       fontFamily: 'Futura',
+                                    //     ),
                                   ),
                                 ],
                               ),
@@ -270,7 +274,7 @@ class OrderListPage extends StatelessWidget {
                           },
                           child: Text(
                             'Confirm',
-                            style: Theme.of(context).textTheme.displaySmall!,
+                            // style: Theme.of(context).textTheme.displaySmall!,
                           ),
                         ),
                       )
