@@ -2,6 +2,9 @@
 
 import 'dart:developer';
 
+import 'package:cherry_toast/cherry_toast.dart';
+import 'package:cherry_toast/resources/arrays.dart';
+// import 'package:elegant_notification/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +14,11 @@ import 'package:mobile_laundry/routes/route_name.dart';
 import 'package:mobile_laundry/widgets/normal_appbar.dart';
 
 class OrderListPage extends StatefulWidget {
-  const OrderListPage({super.key});
+  int? selectedIndex;
+  OrderListPage({
+    Key? key,
+    this.selectedIndex,
+  }) : super(key: key);
 
   @override
   State<OrderListPage> createState() => _OrderListPageState();
@@ -20,7 +27,9 @@ class OrderListPage extends StatefulWidget {
 class _OrderListPageState extends State<OrderListPage> {
   @override
   Widget build(BuildContext context) {
-    OrderListController ctrl = Get.put(OrderListController(), permanent: true);
+    OrderListController ctrl = Get.put(
+      OrderListController(),
+    );
 
     @override
     void initState() {
@@ -47,7 +56,7 @@ class _OrderListPageState extends State<OrderListPage> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemCount: 3,
+                    itemCount: ctrl.servicesList.service?.length ?? 3,
                     itemBuilder: (context, i) {
                       return Padding(
                         padding: const EdgeInsets.all(5),
@@ -56,35 +65,37 @@ class _OrderListPageState extends State<OrderListPage> {
                           child: InkWell(
                             onTap: () {
                               log('orderList $i');
-                              for (var j = 0; j < ctrl.services.length; j++) {
-                                ctrl.services[j].isSelected = false;
+                              for (var j = 0; j < ctrl.servicesList.service!.length; j++) {
+                                ctrl.servicesList.service![j].isSelected = false;
                               }
-                              ctrl.services[i].isSelected = true;
+                              ctrl.servicesList.service![i].isSelected = true;
 
                               ctrl.update();
                             },
-                            child: Container(
-                              width: 110,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: ctrl.services[i].isSelected == true ? GlobalVariables.primaryColor : Colors.white,
-                                shape: BoxShape.rectangle,
-                                boxShadow: [
-                                  BoxShadow(color: Colors.pink),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  ctrl.services[i].name,
-                                  textAlign: TextAlign.center,
-                                  // style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                                  //       color: ctrl.services[i].isSelected == true ? Colors.white : GlobalVariables.primaryColor,
-                                  //       fontWeight: FontWeight.normal,
-                                  //     ),
-                                ),
-                              ),
-                            ),
+                            child: ctrl.servicesList.service == null
+                                ? CircularProgressIndicator()
+                                : Container(
+                                    width: 110,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: ctrl.servicesList.service![i].isSelected == true ? GlobalVariables.primaryColor : Colors.white,
+                                      shape: BoxShape.rectangle,
+                                      boxShadow: [
+                                        BoxShadow(color: Colors.pink),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        ctrl.servicesList.service![i].name!,
+                                        textAlign: TextAlign.center,
+                                        // style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                        //       color: ctrl.services[i].isSelected == true ? Colors.white : GlobalVariables.primaryColor,
+                                        //       fontWeight: FontWeight.normal,
+                                        //     ),
+                                      ),
+                                    ),
+                                  ),
                           ),
                         ),
                       );
@@ -267,10 +278,29 @@ class _OrderListPageState extends State<OrderListPage> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(backgroundColor: GlobalVariables.primaryColor),
                           onPressed: () {
-                            // ctrl.isVisible.value = false;
+                            // ctrl.isVisible.value = false;'
+                            if (ctrl.checkIsServiceSelected() == true) {
+                              Navigator.pushNamed(context, RouteName.pickupShedulePage);
+                            } else {
+                              log('false');
+                              // ElegantNotification.error(
+                              //     animation: AnimationType.fromTop,
+                              //     description: Text(
+                              //       'Please Select Service Type',
+                              //     )).show(context);
+                              CherryToast.warning(
+                                animationDuration: Duration(milliseconds: 1000),
+                                title: Text(''),
+                                displayTitle: false,
+                                description: Text('Please Select Service Type'),
+                                animationType: AnimationType.fromTop,
+                                // action: Text("Backup data"),
+                                // actionHandler: () {
+                                //   print("Hello World!!");
+                                // },
+                              ).show(context);
+                            }
                             ctrl.update();
-
-                            Navigator.pushNamed(context, RouteName.pickupShedulePage);
                           },
                           child: Text(
                             'Confirm',

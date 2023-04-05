@@ -28,7 +28,8 @@ class AdminServicesProduct extends GetxController {
 
   getProduct() async {
     isLoading = true;
-    http.Response res = await http.get(Uri.parse('$uri/admin/get-product'), headers: {
+    http.Response res =
+        await http.get(Uri.parse('$uri/admin/get-product'), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'x-auth-token': authUser.user.token,
     });

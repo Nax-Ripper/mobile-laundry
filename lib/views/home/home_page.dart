@@ -6,6 +6,9 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_laundry/controllers/home_controller.dart';
+import 'package:mobile_laundry/models/arguments_model.dart';
+import 'package:mobile_laundry/routes/route_name.dart';
+import 'package:mobile_laundry/widgets/bottom_bar.dart';
 import 'package:mobile_laundry/widgets/custom_appbar.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,7 +16,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // HomeController hCtrl = Get.put(HomeController());
+
     return GetBuilder<HomeController>(
+      // init: hCtrl,
       init: HomeController(),
       builder: (hCtrl) {
         return Scaffold(
@@ -30,51 +36,62 @@ class HomePage extends StatelessWidget {
                     child: ListView.builder(
                       physics: ScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      itemCount: hCtrl.services.length,
+                      itemCount: hCtrl.servicesList.service?.length ?? 3,
                       shrinkWrap: true,
                       itemBuilder: (context, i) {
                         return Card(
                           elevation: 5,
                           child: InkWell(
+                            
                             onTap: () {
+                              hCtrl.args.index = i;
+                              hCtrl.update();
                               log('tap $i');
+                              Navigator.pushNamed(
+                                context,
+                                RouteName.orderListPage,
+                                arguments: hCtrl.args,
+                              );
                             },
-                            child: Container(
-                              margin: EdgeInsets.only(right: 5),
-                              width: 110,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    top: 10,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 20,
-                                      ),
-                                      child: Container(
-                                        height: 80,
-                                        width: 80,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            color: Colors.white),
-                                        child: hCtrl.services[i].assetImage,
-                                      ),
+                            child: hCtrl.servicesList.service == null
+                                ? SizedBox(
+                                    width: 100,
+                                    height: 50,
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : Container(
+                                    margin: EdgeInsets.only(right: 5),
+                                    width: 110,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Stack(
+                                      children: [
+                                        Positioned(
+                                          top: 10,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 20,
+                                            ),
+                                            child: Container(
+                                              height: 80,
+                                              width: 80,
+                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
+                                              child: Image.network('${hCtrl.servicesList.service![i].imageUrl}'),
+                                            ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Text(
+                                            hCtrl.servicesList.service![i].name!,
+                                            // style: Theme.of(context).textTheme.displaySmall,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Text(
-                                      hCtrl.services[i].name,
-                                      // style: Theme.of(context).textTheme.displaySmall,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                         );
                       },
@@ -105,8 +122,7 @@ class HomePage extends StatelessWidget {
                         padding: EdgeInsets.all(8),
                         height: 90,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(244, 214, 212, 212)
-                              .withOpacity(0.5),
+                          color: Color.fromARGB(244, 214, 212, 212).withOpacity(0.5),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -127,8 +143,7 @@ class HomePage extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             hCtrl.orders[i].startTime,
@@ -161,8 +176,7 @@ class HomePage extends StatelessWidget {
                                         width: 10,
                                       ),
                                       Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             hCtrl.orders[i].endTime,
@@ -251,8 +265,7 @@ class BookNowBanner extends StatelessWidget {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(context).primaryColor.withOpacity(1),
+                        backgroundColor: Theme.of(context).primaryColor.withOpacity(1),
                       ),
                       onPressed: () {},
                       child: Text(

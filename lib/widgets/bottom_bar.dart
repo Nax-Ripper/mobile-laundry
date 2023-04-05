@@ -4,14 +4,17 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/order_list_controller.dart';
 import 'package:mobile_laundry/views/home/home_page.dart';
 import 'package:mobile_laundry/views/order/order_list_page.dart';
 
 class BottomBar extends StatefulWidget {
+  int? page;
   BottomBar({
     Key? key,
+    this.page,
   }) : super(key: key);
 
   @override
@@ -20,6 +23,12 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int page = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    page = widget.page ?? 0;
+  }
 
   double bottomBarWidth = 42;
 
@@ -56,9 +65,7 @@ class _BottomBarState extends State<BottomBar> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: page == 0
-                        ? GlobalVariables.primaryColor
-                        : GlobalVariables.backgroundColor,
+                    color: page == 0 ? GlobalVariables.primaryColor : GlobalVariables.backgroundColor,
                     width: 5,
                   ),
                 ),
@@ -73,9 +80,7 @@ class _BottomBarState extends State<BottomBar> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: page == 1
-                        ? GlobalVariables.primaryColor
-                        : GlobalVariables.backgroundColor,
+                    color: page == 1 ? GlobalVariables.primaryColor : GlobalVariables.backgroundColor,
                     width: 5,
                   ),
                 ),
@@ -98,9 +103,7 @@ class _BottomBarState extends State<BottomBar> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: page == 2
-                        ? GlobalVariables.primaryColor
-                        : GlobalVariables.backgroundColor,
+                    color: page == 2 ? GlobalVariables.primaryColor : GlobalVariables.backgroundColor,
                     width: 5,
                   ),
                 ),

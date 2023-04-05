@@ -29,7 +29,8 @@ class _ProductListPageState extends State<ProductListPage> {
       init: adminService,
       builder: (ctrl) {
         return Scaffold(
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
             floatingActionButton: FloatingActionButton(
               tooltip: 'Add Items',
               onPressed: () {
@@ -52,7 +53,8 @@ class _ProductListPageState extends State<ProductListPage> {
                             return Card(
                               child: ListTile(
                                 // leading: ctrl.orderListCtrl.items[i].image,
-                                leading: Image.network(ctrl.products[i].images[0]),
+                                leading:
+                                    Image.network(ctrl.products[i].images[0]),
                                 title: Text(ctrl.products[i].name),
                                 subtitle: Text('RM ${ctrl.products[i].price}'),
                                 // trailing: Icon(Icons.arrow_forward_ios_sharp),

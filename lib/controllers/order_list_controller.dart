@@ -8,6 +8,7 @@ import 'package:mobile_laundry/controllers/auth_controller.dart';
 import 'package:mobile_laundry/models/laundry_services_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_laundry/models/product_model.dart';
+import 'package:mobile_laundry/models/service.dart';
 
 class OrderListController extends GetxController {
   @override
@@ -15,6 +16,7 @@ class OrderListController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getMenuItemList();
+    getServices();
   }
 
   AuthController authUser = Get.find<AuthController>();
@@ -23,33 +25,34 @@ class OrderListController extends GetxController {
   RxDouble totalAmount = 0.0.obs;
   RxBool isVisible = false.obs;
   List<Product> products = [];
+  Services servicesList = Services();
 
-  List<LaundryServices> services = [
-    LaundryServices(
-      id: 1,
-      name: 'Wash Only',
-      imageUrl: 'lib/assets/wash.png',
-      assetImage: Image.asset('lib/assets/wash.png'),
-      isSelected: false,
-    ),
-    LaundryServices(
-      id: 2,
-      name: 'Dry Only',
-      imageUrl: 'lib/assets/dry.png',
-      assetImage: Image.asset('lib/assets/dry.png'),
-      isSelected: false,
-    ),
-    LaundryServices(
-      id: 3,
-      name: 'Wash and Dry',
-      imageUrl: 'lib/assets/wash_dry.jpg',
-      assetImage: Image.asset(
-        'lib/assets/wash_dry_2.png',
-        fit: BoxFit.fitWidth,
-      ),
-      isSelected: false,
-    ),
-  ];
+  // List<LaundryServices> services = [
+  //   LaundryServices(
+  //     id: 1,
+  //     name: 'Wash Only',
+  //     imageUrl: 'lib/assets/wash.png',
+  //     assetImage: Image.asset('lib/assets/wash.png'),
+  //     isSelected: false,
+  //   ),
+  //   LaundryServices(
+  //     id: 2,
+  //     name: 'Dry Only',
+  //     imageUrl: 'lib/assets/dry.png',
+  //     assetImage: Image.asset('lib/assets/dry.png'),
+  //     isSelected: false,
+  //   ),
+  //   LaundryServices(
+  //     id: 3,
+  //     name: 'Wash and Dry',
+  //     imageUrl: 'lib/assets/wash_dry.jpg',
+  //     assetImage: Image.asset(
+  //       'lib/assets/wash_dry_2.png',
+  //       fit: BoxFit.fitWidth,
+  //     ),
+  //     isSelected: false,
+  //   ),
+  // ];
 
   getMenuItemList() async {
     http.Response res = await http.get(Uri.parse('$uri/api/get-product'), headers: {
@@ -65,6 +68,32 @@ class OrderListController extends GetxController {
     }
 
     update();
+  }
+
+  getServices() async {
+    http.Response res = await http.get(Uri.parse('$uri/api/get-services'), headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'x-auth-token': authUser.user.token,
+    });
+    log('${res.body}');
+
+    servicesList = Services.fromJson(res.body);
+
+    log('ServiceList :${servicesList.service![0].name}');
+    update();
+  }
+
+  bool checkIsServiceSelected() {
+    List<bool> isSelectValue = [];
+    for (var select in servicesList.service!) {
+      isSelectValue.add(select.isSelected!);
+    }
+
+    log('$isSelectValue');
+
+    bool isSelect = isSelectValue.contains(true);
+    update();
+    return isSelect;
   }
 
   // List<MenuItems> items = [
