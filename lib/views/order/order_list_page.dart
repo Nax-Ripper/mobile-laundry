@@ -7,6 +7,7 @@ import 'package:cherry_toast/resources/arrays.dart';
 // import 'package:elegant_notification/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/order_list_controller.dart';
@@ -73,7 +74,7 @@ class _OrderListPageState extends State<OrderListPage> {
                               ctrl.update();
                             },
                             child: ctrl.servicesList.service == null
-                                ? CircularProgressIndicator()
+                                ? LoadingAnimationWidget.discreteCircle(color: GlobalVariables.primaryColor, size: 30)
                                 : Container(
                                     width: 110,
                                     height: 50,

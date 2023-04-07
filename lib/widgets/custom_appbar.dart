@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import 'package:mobile_laundry/config/global_variables.dart';
+import 'package:mobile_laundry/controllers/geo_location_controller.dart';
 
 class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
-  const CustomAppbar({
-    super.key,
-  });
+  GeoLocationController? locator;
+  CustomAppbar({
+    Key? key,
+    this.locator,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // GeoLocationController locator = Get.find<GeoLocationController>();
+
     return AppBar(
       leading: IconButton(
         onPressed: () {},
@@ -14,21 +24,20 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
           Icons.person,
         ),
       ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // ignore: prefer_const_literals_to_create_immutables
-        children: [
-          Text('CURRENT LOCATION',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontSize: 17)),
-          Text('UTM,JB',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(fontSize: 16)),
-        ],
+      title: GetBuilder(
+        init: locator,
+        builder: (locator) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              Text('CURRENT LOCATION', style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 17)),
+              locator.address.streetAddress == null
+                  ? LoadingAnimationWidget.waveDots(color: GlobalVariables.primaryColor, size: 30)
+                  : Text('${locator.address.streetAddress}', style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 16)),
+            ],
+          );
+        },
       ),
     );
   }

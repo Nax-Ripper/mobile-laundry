@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_laundry/controllers/geo_location_controller.dart';
 import 'package:mobile_laundry/controllers/home_controller.dart';
 import 'package:mobile_laundry/models/arguments_model.dart';
 import 'package:mobile_laundry/routes/route_name.dart';
@@ -17,6 +18,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // HomeController hCtrl = Get.put(HomeController());
+    GeoLocationController locator = Get.find<GeoLocationController>();
 
     return GetBuilder<HomeController>(
       // init: hCtrl,
@@ -24,7 +26,7 @@ class HomePage extends StatelessWidget {
       builder: (hCtrl) {
         return Scaffold(
           backgroundColor: Colors.white,
-          appBar: CustomAppbar(),
+          appBar: CustomAppbar(locator: locator),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -42,7 +44,6 @@ class HomePage extends StatelessWidget {
                         return Card(
                           elevation: 5,
                           child: InkWell(
-                            
                             onTap: () {
                               hCtrl.args.index = i;
                               hCtrl.update();

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:geocode/geocode.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,9 @@ class GeoLocationController extends GetxController {
   late LocationPermission permission;
   List<PlaceAutoComplete> autpCompletePlaces = [];
   Place place = Place();
+  GeoCode geoCode = GeoCode(apiKey: '772073767714501497030x70515');
+  Address address = Address();
+  String? FullAddress;
 
   // GeoLocationController searchBar1 = Get.find(tag: 'Pickup Address');
   // GeoLocationController searchBar2 = Get.find(tag: 'Delivery Address');
@@ -39,27 +43,24 @@ class GeoLocationController extends GetxController {
   }
 
   Future<Position> getCurrentLocation() async {
-    isCurrentLocationLoading;
+    isCurrentLocationLoading.value = true;
     Position pos;
+    // placemarks.clear();
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
     }
-    pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
 
     log('$pos');
     Latitude.value = pos.latitude;
     Longitude.value = pos.longitude;
-    List<Placemark> placemarks = await placemarkFromCoordinates(pos.latitude, pos.longitude);
-
-    for (var i = 0; i < placemarks.length; i++) {
-      log('name : ${placemarks[i].name!}');
-      log('street : ${placemarks[i].street!}');
-      log('country : ${placemarks[i].country!}');
-    }
-
+    address = await geoCode.reverseGeocoding(latitude: pos.latitude, longitude: pos.longitude);
+    log('${address.streetAddress}');
+    FullAddress = getFullAddress(streetNum: address.streetNumber ?? 0, streetAdd: address.streetAddress!, countryName: address.countryName!, postal: address.postal!, city: address.city!);
     isCurrentLocationLoading.value = false;
     update();
+    refresh();
     return pos;
   }
 
@@ -78,6 +79,10 @@ class GeoLocationController extends GetxController {
     log('$autpCompletePlaces');
 
     // PlaceAutoComplete.fromJson(res.body);
+  }
+
+  getFullAddress({required int streetNum, required String streetAdd, required String countryName, required String postal, required String city}) {
+    return '$streetNum ,$streetAdd ,$postal,$city, $countryName ';
   }
 
   Future getPlace({required String placeId}) async {

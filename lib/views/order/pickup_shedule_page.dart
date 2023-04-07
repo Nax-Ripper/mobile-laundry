@@ -8,7 +8,9 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mobile_laundry/config/global_variables.dart';
+import 'package:mobile_laundry/controllers/geo_location_controller.dart';
 import 'package:mobile_laundry/controllers/shedule_pickup_controller.dart';
 import 'package:mobile_laundry/routes/route_name.dart';
 import 'package:mobile_laundry/widgets/normal_Appbar.dart';
@@ -24,14 +26,20 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
   @override
   Widget build(BuildContext context) {
     var ctrl = Get.put<SheduleController>(SheduleController(), permanent: false);
-    // @override
+    var geoLocatorCtrl = Get.find<GeoLocationController>();
+    @override
     void initState() {
       super.initState();
       ctrl.getRiderFee();
+      // geoLocatorCtrl.placemarks.clear();
+      // geoLocatorCtrl.getCurrentLocation();
+      // geoLocatorCtrl.update();
     }
 
     return WillPopScope(
       onWillPop: () {
+        // Get.delete<GeoLocationController>(force: true);
+
         return Get.delete<SheduleController>(force: true);
       },
       child: Scaffold(
@@ -393,44 +401,59 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                   Icon(Icons.location_on, size: 30),
                                 ],
                               ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        ctrl.args.index = 1;
-                                        ctrl.args.title = 'PickUp Address';
-                                        log('pickup');
-                                        Navigator.pushNamed(context, RouteName.locationPage, arguments: ctrl.args);
-                                        ctrl.update();
-                                      },
-                                      child: ListTile(
-                                        title: Text('${ctrl.address.pickup}'),
-                                        subtitle: Text('Full Address'),
-                                      ),
+                              GetBuilder(
+                                init: geoLocatorCtrl,
+                                builder: (geoLocatorCtrl) {
+                                  return Expanded(
+                                    child: Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            ctrl.args.index = 1;
+                                            ctrl.args.title = 'PickUp Address';
+                                            log('pickup');
+                                            Navigator.pushNamed(context, RouteName.locationPage, arguments: ctrl.args);
+                                            ctrl.update();
+                                          },
+                                          child: geoLocatorCtrl.isCurrentLocationLoading.value == true
+                                              ? LoadingAnimationWidget.waveDots(color: GlobalVariables.primaryColor, size: 50)
+                                              : ListTile(
+                                                  title: Text('${geoLocatorCtrl.address.streetAddress}'),
+                                                  subtitle: Text(geoLocatorCtrl.FullAddress ?? 'test'),
+                                                  // title: Text('${geoLocatorCtrl.placemarks[0].name}'),
+                                                  // subtitle: Text(
+                                                  //   '${geoLocatorCtrl.placemarks[0].street}, ${geoLocatorCtrl.placemarks[0].name} ,${geoLocatorCtrl.placemarks[0].subLocality},${geoLocatorCtrl.placemarks[0].postalCode} , ${geoLocatorCtrl.placemarks[0].administrativeArea} , ${geoLocatorCtrl.placemarks[0].country}',
+                                                  // ),
+                                                ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                                          child: Divider(
+                                            thickness: 3,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            ctrl.args.index = 2;
+                                            ctrl.args.title = 'Delivery Address';
+                                            log('deli');
+                                            Navigator.pushNamed(context, RouteName.locationPage, arguments: ctrl.args);
+                                            ctrl.update();
+                                          },
+                                          child: geoLocatorCtrl.isCurrentLocationLoading.value == true
+                                              ? LoadingAnimationWidget.waveDots(color: GlobalVariables.primaryColor, size: 50)
+                                              : ListTile(
+                                                  // title: Text('${ctrl.address.delivery}'),
+                                                  // subtitle: Text('Full Address'),
+                                                  title: Text('${geoLocatorCtrl.address.streetAddress}'),
+                                                  subtitle: Text(geoLocatorCtrl.FullAddress ?? 'test'),
+                                                ),
+                                        )
+                                      ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                                      child: Divider(
-                                        thickness: 3,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        ctrl.args.index = 2;
-                                        ctrl.args.title = 'Delivery Address';
-                                        log('deli');
-                                        Navigator.pushNamed(context, RouteName.locationPage, arguments: ctrl.args);
-                                        ctrl.update();
-                                      },
-                                      child: ListTile(
-                                        title: Text('${ctrl.address.delivery}'),
-                                        subtitle: Text('Full Address'),
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  );
+                                },
                               )
                             ],
                           ),

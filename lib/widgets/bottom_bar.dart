@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:mobile_laundry/config/global_variables.dart';
+import 'package:mobile_laundry/controllers/geo_location_controller.dart';
 import 'package:mobile_laundry/controllers/order_list_controller.dart';
 import 'package:mobile_laundry/views/home/home_page.dart';
 import 'package:mobile_laundry/views/order/order_list_page.dart';
@@ -30,6 +31,10 @@ class _BottomBarState extends State<BottomBar> {
     page = widget.page ?? 0;
   }
 
+  // GeoLocationController locator = Get.find<GeoLocationController>().initialized
+  //         ? Get.find<GeoLocationController>()
+  //         : Get.put(GeoLocationController());
+  GeoLocationController loctor = Get.put(GeoLocationController());
   double bottomBarWidth = 42;
 
   void setPage(int newPage) {
