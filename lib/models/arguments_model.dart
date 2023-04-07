@@ -2,19 +2,23 @@ import 'dart:convert';
 
 class Args {
   int? index;
+  String? title;
   Args({
-     this.index,
+    this.index,
+    this.title,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'index': index,
+      'title': title,
     };
   }
 
   factory Args.fromMap(Map<String, dynamic> map) {
     return Args(
       index: map['index']?.toInt(),
+      title: map['title'],
     );
   }
 

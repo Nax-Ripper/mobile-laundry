@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/auth_controller.dart';
 import 'package:mobile_laundry/controllers/order_list_controller.dart';
+import 'package:mobile_laundry/models/arguments_model.dart';
 import 'package:mobile_laundry/models/payments_method_model.dart';
 import 'package:mobile_laundry/models/pickup_delivery_address_model.dart';
 
@@ -30,6 +31,8 @@ class SheduleController extends GetxController {
   Rx<DateTime> pickUpTime = DateTime.now().add(const Duration(hours: 1)).obs;
   Rx<DateTime> deliveryTime = DateTime.now().add(const Duration(hours: 3)).obs;
   AuthController authUser = Get.find<AuthController>();
+      Args args = Args();
+
 
   @override
   void onInit() {

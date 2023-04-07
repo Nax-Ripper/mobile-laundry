@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/shedule_pickup_controller.dart';
+import 'package:mobile_laundry/routes/route_name.dart';
 import 'package:mobile_laundry/widgets/normal_Appbar.dart';
 
 class PickUpShedulePage extends StatefulWidget {
@@ -397,7 +398,11 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
+                                        ctrl.args.index = 1;
+                                        ctrl.args.title = 'PickUp Address';
                                         log('pickup');
+                                        Navigator.pushNamed(context, RouteName.locationPage, arguments: ctrl.args);
+                                        ctrl.update();
                                       },
                                       child: ListTile(
                                         title: Text('${ctrl.address.pickup}'),
@@ -413,7 +418,11 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
+                                        ctrl.args.index = 2;
+                                        ctrl.args.title = 'Delivery Address';
                                         log('deli');
+                                        Navigator.pushNamed(context, RouteName.locationPage, arguments: ctrl.args);
+                                        ctrl.update();
                                       },
                                       child: ListTile(
                                         title: Text('${ctrl.address.delivery}'),

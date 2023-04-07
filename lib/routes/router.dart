@@ -18,8 +18,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
   Args? args = Args();
   switch (routeSettings.name) {
     case RouteName.locationPage:
+      args = routeSettings.arguments as Args?;
+
+
       return MaterialPageRoute(
-        builder: (_) => LocationPage(),
+        builder: (_) => LocationPage(index: args!.index,title: args!.title),
       );
 
     case RouteName.homePage:
