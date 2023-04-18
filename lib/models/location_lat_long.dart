@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 class LocationLatLong {
-  double? latitude;
-  double? longitude;
+  double latitude;
+  double longitude;
   LocationLatLong({
-    this.latitude,
-    this.longitude,
+    required this.latitude,
+    required this.longitude,
   });
 
   Map<String, dynamic> toMap() {

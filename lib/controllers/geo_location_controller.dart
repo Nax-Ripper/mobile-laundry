@@ -1,9 +1,13 @@
+// ignore_for_file: unused_field, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:geocode/geocode.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile_laundry/models/arguments_model.dart';
 import 'package:mobile_laundry/models/location_lat_long.dart';
 // import 'package:mobile_laundry/models/location_lat_long.dart';
@@ -21,20 +25,27 @@ class GeoLocationController extends GetxController {
   late LocationPermission permission;
   List<PlaceAutoComplete> autpCompletePlaces = [];
   Place place = Place();
+  late Position pos;
   GeoCode geoCode = GeoCode(apiKey: '772073767714501497030x70515');
   Address address = Address();
-  String? FullAddress;
+  String? FullAddress1;
+  String? FullAddress2;
+  String? shortAddress1;
+  String? shortAddress2;
 
+  // Address address1 = Address();
+  // Address address2 = Address();
   // GeoLocationController searchBar1 = Get.find(tag: 'Pickup Address');
   // GeoLocationController searchBar2 = Get.find(tag: 'Delivery Address');
+  List<LocationLatLong> latslongs = [
+    LocationLatLong(latitude: 2.499571073897077, longitude: 102.85764956066805),
+    LocationLatLong(latitude: 2.499571073897077, longitude: 102.85764956066805),
+  ];
 
-  ListofLocationLatLong LatLongs = ListofLocationLatLong([
-    LocationLatLong(latitude: 2.499571073897077, longitude: 102.85764956066805),
-    LocationLatLong(latitude: 2.499571073897077, longitude: 102.85764956066805),
-  ]);
+  List<Placemark> places = [];
 
   static const String key = 'AIzaSyB1_5TEpfxa-qWY8nc7DnMHeUnV6HQs15U';
-  static const String types = 'geocode';
+  static const String types = 'address';
 
   @override
   void onInit() {
@@ -44,20 +55,50 @@ class GeoLocationController extends GetxController {
 
   Future<Position> getCurrentLocation() async {
     isCurrentLocationLoading.value = true;
-    Position pos;
+    // Position pos;
     // placemarks.clear();
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
     }
-    pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
 
     log('$pos');
     Latitude.value = pos.latitude;
     Longitude.value = pos.longitude;
-    address = await geoCode.reverseGeocoding(latitude: pos.latitude, longitude: pos.longitude);
-    log('${address.streetAddress}');
-    FullAddress = getFullAddress(streetNum: address.streetNumber ?? 0, streetAdd: address.streetAddress!, countryName: address.countryName!, postal: address.postal!, city: address.city!);
+
+    // address = await geoCode.reverseGeocoding(latitude: pos.latitude, longitude: pos.longitude);
+    // address = await geoCode.reverseGeocoding(latitude: 37.2430117, longitude: -122.1677517);
+
+    places = await placemarkFromCoordinates(pos.latitude, pos.longitude);
+    Placemark place = places[2];
+    for (var i = 0; i < places.length; i++) {
+      // name of jalan
+      log('street:${places[2].street}');
+      // johor Bahru
+      log('locality:${places[2].locality}');
+      // log('sublocality:${places[i].subLocality}');
+      // Johor
+      log('administrativeArea:${places[2].administrativeArea}');
+      // Malaysia
+      log('country:${places[2].country}');
+      // same as jalan
+      log('name:${places[2].name}');
+      // postal (85000)
+      log('postalCode:${places[i].postalCode}');
+      // log('subThroughfare:${places[i].subThoroughfare}');
+      // log('Throughfare:${places[i].thoroughfare}');
+      log('-----------------------------------------');
+    }
+
+    log('Full Address : ${place.name} , ${place.locality} , ${place.postalCode}, ${place.administrativeArea}');
+
+    // log('Full address : ${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}');
+
+    // log('The address is ${address.streetAddress}');
+
+    FullAddress1 = await getAddress(lat: pos.latitude, long: pos.longitude, isShort: false);
+    shortAddress1 = await getAddress(lat: pos.latitude, long: pos.longitude, isShort: true);
     isCurrentLocationLoading.value = false;
     update();
     refresh();
@@ -81,8 +122,15 @@ class GeoLocationController extends GetxController {
     // PlaceAutoComplete.fromJson(res.body);
   }
 
-  getFullAddress({required int streetNum, required String streetAdd, required String countryName, required String postal, required String city}) {
-    return '$streetNum ,$streetAdd ,$postal,$city, $countryName ';
+  getAddress({required double lat, required double long, required isShort}) async {
+    places = await placemarkFromCoordinates(pos.latitude, pos.longitude);
+    Placemark place = places[2];
+
+    if (isShort) {
+      return '${place.name} , ${place.locality} , ${place.postalCode} ${place.administrativeArea}';
+    } else {
+      return '${place.name} , ${place.locality}';
+    }
   }
 
   Future getPlace({required String placeId}) async {

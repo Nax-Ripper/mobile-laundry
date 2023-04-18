@@ -36,6 +36,7 @@ class _OrderListPageState extends State<OrderListPage> {
     void initState() {
       super.initState();
       ctrl.getMenuItemList();
+      ctrl.getServices();
     }
 
     return GetBuilder<OrderListController>(
@@ -71,6 +72,9 @@ class _OrderListPageState extends State<OrderListPage> {
                               }
                               ctrl.servicesList.service![i].isSelected = true;
 
+                              ctrl.selectedServicePrice.value = ctrl.servicesList.service![i].price!;
+                              ctrl.selectedService = ctrl.servicesList.service![i];
+                              log('${ctrl.servicesList.service![i].price}');
                               ctrl.update();
                             },
                             child: ctrl.servicesList.service == null
@@ -122,14 +126,24 @@ class _OrderListPageState extends State<OrderListPage> {
                             children: [
                               Row(
                                 children: [
-                                  Image.network(ctrl.products[i].images[0]),
+                                  ctrl.products.isEmpty
+                                      ? LoadingAnimationWidget.inkDrop(color: GlobalVariables.primaryColor, size: 30)
+                                      : SizedBox(
+                                          child: Image.network(
+                                            ctrl.products[i].images![0],
+                                            loadingBuilder: (context, child, loadingProgress) {
+                                              if (loadingProgress == null) return child;
+                                              return LoadingAnimationWidget.inkDrop(color: GlobalVariables.primaryColor, size: 30);
+                                            },
+                                          ),
+                                        ),
                                   SizedBox(width: 15),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        ctrl.products[i].name,
+                                        ctrl.products[i].name!,
                                         // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
                                       ),
                                       Text(
@@ -155,7 +169,7 @@ class _OrderListPageState extends State<OrderListPage> {
                                         ctrl.products[i].quantity = ctrl.products[i].quantity! - 1;
                                       }
                                       if (ctrl.totalAmount.value > 0.0) {
-                                        ctrl.totalAmount.value -= ctrl.products[i].price;
+                                        ctrl.totalAmount.value -= ctrl.products[i].price!;
                                       }
 
                                       if (ctrl.totalQty.value == 0) ctrl.isVisible.value = false;
@@ -182,8 +196,9 @@ class _OrderListPageState extends State<OrderListPage> {
                                       ctrl.totalQty.value++;
                                       // ctrl.products[i].quantity++;
                                       ctrl.products[i].quantity = ctrl.products[i].quantity! + 1;
-                                      ctrl.totalAmount.value += ctrl.products[i].price;
+                                      ctrl.totalAmount.value += ctrl.products[i].price!;
                                       if (ctrl.totalQty.value > 0) ctrl.isVisible.value = true;
+
                                       ctrl.update();
                                     },
                                     child: Container(
@@ -284,21 +299,12 @@ class _OrderListPageState extends State<OrderListPage> {
                               Navigator.pushNamed(context, RouteName.pickupShedulePage);
                             } else {
                               log('false');
-                              // ElegantNotification.error(
-                              //     animation: AnimationType.fromTop,
-                              //     description: Text(
-                              //       'Please Select Service Type',
-                              //     )).show(context);
                               CherryToast.warning(
                                 animationDuration: Duration(milliseconds: 1000),
                                 title: Text(''),
                                 displayTitle: false,
                                 description: Text('Please Select Service Type'),
                                 animationType: AnimationType.fromTop,
-                                // action: Text("Backup data"),
-                                // actionHandler: () {
-                                //   print("Hello World!!");
-                                // },
                               ).show(context);
                             }
                             ctrl.update();

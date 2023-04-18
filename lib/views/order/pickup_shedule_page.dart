@@ -27,12 +27,13 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
   Widget build(BuildContext context) {
     var ctrl = Get.put<SheduleController>(SheduleController(), permanent: false);
     var geoLocatorCtrl = Get.find<GeoLocationController>();
+
     @override
     void initState() {
       super.initState();
       ctrl.getRiderFee();
       // geoLocatorCtrl.placemarks.clear();
-      // geoLocatorCtrl.getCurrentLocation();
+      geoLocatorCtrl.getCurrentLocation();
       // geoLocatorCtrl.update();
     }
 
@@ -65,7 +66,7 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: Container(
-                  height: 150,
+                  height: 200,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     // color: GlobalVariables.greyColor,
@@ -114,6 +115,27 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                           ],
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Text(
+                                'Service Fee',
+                                // style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                //       color: GlobalVariables.primaryColor,
+                                //     ),
+                              ),
+                            ),
+                            Text(
+                              'RM ${ctrl.orders.selectedService.price}',
+                              // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
+                            ),
+                          ],
+                        ),
+                      ),
                       Divider(
                         color: Colors.black.withOpacity(0.3),
                       ),
@@ -131,7 +153,7 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                             Obx(
                               () => Text(
                                 // 'RM ${ctrl.orders.totalAmount.value + 10}',
-                                'RM ${double.parse((ctrl.orders.totalAmount.value + ctrl.riderFee.value).toString()).toStringAsFixed(2)}',
+                                'RM ${double.parse((ctrl.orders.totalAmount.value + ctrl.riderFee.value + ctrl.orders.selectedServicePrice.value).toString()).toStringAsFixed(2)} ',
                                 // 'RM ${ctrl.orders.totalAmount.value + 10}',
                                 // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: GlobalVariables.primaryColor),
                               ),
@@ -418,8 +440,8 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                           child: geoLocatorCtrl.isCurrentLocationLoading.value == true
                                               ? LoadingAnimationWidget.waveDots(color: GlobalVariables.primaryColor, size: 50)
                                               : ListTile(
-                                                  title: Text('${geoLocatorCtrl.address.streetAddress}'),
-                                                  subtitle: Text(geoLocatorCtrl.FullAddress ?? 'test'),
+                                                  title: Text('${geoLocatorCtrl.shortAddress1}'),
+                                                  subtitle: Text(geoLocatorCtrl.FullAddress1 ?? 'test'),
                                                   // title: Text('${geoLocatorCtrl.placemarks[0].name}'),
                                                   // subtitle: Text(
                                                   //   '${geoLocatorCtrl.placemarks[0].street}, ${geoLocatorCtrl.placemarks[0].name} ,${geoLocatorCtrl.placemarks[0].subLocality},${geoLocatorCtrl.placemarks[0].postalCode} , ${geoLocatorCtrl.placemarks[0].administrativeArea} , ${geoLocatorCtrl.placemarks[0].country}',
@@ -446,8 +468,8 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                               : ListTile(
                                                   // title: Text('${ctrl.address.delivery}'),
                                                   // subtitle: Text('Full Address'),
-                                                  title: Text('${geoLocatorCtrl.address.streetAddress}'),
-                                                  subtitle: Text(geoLocatorCtrl.FullAddress ?? 'test'),
+                                                  title: Text('${geoLocatorCtrl.shortAddress1}'),
+                                                  subtitle: Text(geoLocatorCtrl.FullAddress1 ?? 'test'),
                                                 ),
                                         )
                                       ],
@@ -554,6 +576,36 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                         // ),
 
                         ),
+                  );
+                },
+              ),
+              GetBuilder(
+                init: ctrl,
+                builder: (ctrl) {
+                  return Column(
+                    children: [
+                      Center(
+                        child: ctrl.payments[0].isSelected == true
+                            ? SizedBox(
+                                width: 200,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text('Pay'),
+                                ),
+                              )
+                            : SizedBox(
+                                width: 200,
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, RouteName.orderDetailsPage);
+                                    },
+                                    child: Text('Checkout')),
+                              ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
                   );
                 },
               )

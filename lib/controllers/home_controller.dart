@@ -6,7 +6,7 @@ import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/auth_controller.dart';
 import 'package:mobile_laundry/models/arguments_model.dart';
 import 'package:mobile_laundry/models/last_orders.dart';
-import 'package:mobile_laundry/models/laundry_services_model.dart';
+
 import 'package:mobile_laundry/models/service.dart';
 import 'package:http/http.dart' as http;
 
@@ -22,8 +22,7 @@ class HomeController extends GetxController {
 
   Services servicesList = Services();
   bool isServiceLoading = true;
-      Args args = Args();
-
+  Args args = Args();
 
   // List<LaundryServices> services = [
   //   LaundryServices(
@@ -54,10 +53,13 @@ class HomeController extends GetxController {
 
   getServices() async {
     isServiceLoading = true;
-    http.Response res = await http.get(Uri.parse('$uri/api/get-services'), headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'x-auth-token': authUser.user.token,
-    });
+    http.Response res = await http.get(
+      Uri.parse('$uri/api/get-services'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': authUser.user.token,
+      },
+    );
     log('${res.body}');
 
     servicesList = Services.fromJson(res.body);

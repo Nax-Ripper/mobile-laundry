@@ -8,6 +8,7 @@ import 'package:mobile_laundry/routes/route_name.dart';
 import 'package:mobile_laundry/views/admin/product_services/add_product_page.dart';
 import 'package:mobile_laundry/views/admin/product_services/product_page.dart';
 import 'package:mobile_laundry/views/auth/auth_page.dart';
+import 'package:mobile_laundry/views/checkout/order_details_page.dart';
 import 'package:mobile_laundry/views/location/location_page.dart';
 import 'package:mobile_laundry/views/order/order_list_page.dart';
 import 'package:mobile_laundry/views/order/pickup_shedule_page.dart';
@@ -20,9 +21,8 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case RouteName.locationPage:
       args = routeSettings.arguments as Args?;
 
-
       return MaterialPageRoute(
-        builder: (_) => LocationPage(index: args!.index,title: args!.title),
+        builder: (_) => LocationPage(index: args!.index, title: args!.title),
       );
 
     case RouteName.homePage:
@@ -46,6 +46,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case RouteName.authPage:
       return MaterialPageRoute(
         builder: (_) => AuthPage(),
+      );
+    case RouteName.orderDetailsPage:
+      return MaterialPageRoute(
+        builder: (_) => OrderDetailsPage(),
       );
 
     case RouteName.adminServiceListPage:

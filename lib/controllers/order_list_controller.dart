@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/auth_controller.dart';
-import 'package:mobile_laundry/models/laundry_services_model.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:mobile_laundry/models/product_model.dart';
 import 'package:mobile_laundry/models/service.dart';
@@ -23,7 +23,9 @@ class OrderListController extends GetxController {
 
   RxInt totalQty = 0.obs;
   RxDouble totalAmount = 0.0.obs;
+  RxInt selectedServicePrice = 0.obs;
   RxBool isVisible = false.obs;
+  Service selectedService = Service();
   List<Product> products = [];
   Services servicesList = Services();
 
@@ -60,7 +62,7 @@ class OrderListController extends GetxController {
       'x-auth-token': authUser.user.token,
     });
 
-    log('${res.body}');
+    log(res.body);
 
     products.clear();
     for (var i = 0; i < jsonDecode(res.body).length; i++) {
@@ -75,7 +77,7 @@ class OrderListController extends GetxController {
       'Content-Type': 'application/json; charset=UTF-8',
       'x-auth-token': authUser.user.token,
     });
-    log('${res.body}');
+    log(res.body);
 
     servicesList = Services.fromJson(res.body);
 

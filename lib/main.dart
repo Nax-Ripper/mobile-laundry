@@ -27,9 +27,7 @@ class _MyAppState extends State<MyApp> {
     @override
     void initState() {
       super.initState();
-      getX = Get.find<AuthController>().initialized
-          ? Get.find<AuthController>()
-          : Get.put(AuthController());
+      getX = Get.find<AuthController>().initialized ? Get.find<AuthController>() : Get.put(AuthController());
     }
 
     return MaterialApp(
@@ -40,13 +38,13 @@ class _MyAppState extends State<MyApp> {
 
       // initialRoute: RouteName.homePage,
       // initialRoute: RouteName.homePage,
-      // home: BottomBar(),
+      // home: OrderDetailsPage(),
       // home:Get.find<AuthController>().initialized!= true Get.put(AuthController()).getUser.isEmpty? AuthPage():Get.find<AuthController>().getUser.type=='user'?BottomBar():AdminHomePage() ,
       home: getX.user.token.isEmpty
-          ? AuthPage()
+          ? const AuthPage()
           : getX.user.type == 'user'
               ? BottomBar()
-              : AdminHomePage(),
+              : const AdminHomePage(),
     );
   }
 }

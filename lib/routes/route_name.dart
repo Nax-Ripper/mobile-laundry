@@ -8,4 +8,5 @@ class RouteName extends Route {
   static const String adminServiceListPage = '/adminServiceList_screen';
   static const String addProuctPage = '/addProduct';
   static const String orderListPage = '/orderListPage';
+  static const String orderDetailsPage = '/orderDetailsPage';
 }

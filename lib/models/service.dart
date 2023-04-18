@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class Service {
   String? id;
   String? name;
@@ -7,7 +9,7 @@ class Service {
   String? imageUrl;
   int? v;
   bool? isSelected;
-
+  int? price;
   Service({
     this.id,
     this.name,
@@ -15,29 +17,87 @@ class Service {
     this.imageUrl,
     this.v,
     this.isSelected,
+     this.price,
   });
 
-  factory Service.fromMap(Map<String, dynamic> data) => Service(
-      id: data['_id'] as String?,
-      name: data['name'] as String?,
-      description: data['description'] as String?,
-      imageUrl: data['imageUrl'] as String?,
-      v: data['__v'] as int?,
-      isSelected: data['isSelected'] as bool?);
 
-  Map<String, dynamic> toMap() => {'_id': id, 'name': name, 'description': description, 'imageUrl': imageUrl, '__v': v, 'isSelected': isSelected};
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Service].
-  factory Service.fromJson(String data) {
-    return Service.fromMap(json.decode(data) as Map<String, dynamic>);
+  Service copyWith({
+    String? id,
+    String? name,
+    String? description,
+    String? imageUrl,
+    int? v,
+    bool? isSelected,
+    int? price,
+  }) {
+    return Service(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      imageUrl: imageUrl ?? this.imageUrl,
+      v: v ?? this.v,
+      isSelected: isSelected ?? this.isSelected,
+      price: price ?? this.price,
+    );
   }
 
-  /// `dart:convert`
-  ///
-  /// Converts [Service] to a JSON string.
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'imageUrl': imageUrl,
+      'v': v,
+      'isSelected': isSelected,
+      'price': price,
+    };
+  }
+
+  factory Service.fromMap(Map<String, dynamic> map) {
+    return Service(
+      id: map['id'],
+      name: map['name'],
+      description: map['description'],
+      imageUrl: map['imageUrl'],
+      v: map['v']?.toInt(),
+      isSelected: map['isSelected'],
+      price: map['price']?.toInt() ?? 0,
+    );
+  }
+
   String toJson() => json.encode(toMap());
+
+  factory Service.fromJson(String source) => Service.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'Service(id: $id, name: $name, description: $description, imageUrl: $imageUrl, v: $v, isSelected: $isSelected, price: $price)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+  
+    return other is Service &&
+      other.id == id &&
+      other.name == name &&
+      other.description == description &&
+      other.imageUrl == imageUrl &&
+      other.v == v &&
+      other.isSelected == isSelected &&
+      other.price == price;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+      name.hashCode ^
+      description.hashCode ^
+      imageUrl.hashCode ^
+      v.hashCode ^
+      isSelected.hashCode ^
+      price.hashCode;
+  }
 }
 
 class Services {

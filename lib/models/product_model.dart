@@ -2,18 +2,18 @@ import 'dart:convert';
 import 'dart:io';
 
 class Product {
-  final String name;
-  final String description;
-  final double price;
-  final List<String> images;
+  final String? name;
+  final String? description;
+  final double? price;
+  final List<String>? images;
   String? id;
   String? userId;
   int? quantity;
   Product({
-    required this.name,
-    required this.description,
-    required this.price,
-    required this.images,
+    this.name,
+    this.description,
+    this.price,
+    this.images,
     this.id,
     this.userId,
     this.quantity,
@@ -45,6 +45,5 @@ class Product {
 
   String toJson() => json.encode(toMap());
 
-  factory Product.fromJson(String source) =>
-      Product.fromMap(json.decode(source));
+  factory Product.fromJson(String source) => Product.fromMap(json.decode(source));
 }

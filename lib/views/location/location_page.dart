@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geocode/geocode.dart';
 import 'package:get/get.dart';
 
 import 'package:mobile_laundry/controllers/geo_location_controller.dart';
@@ -38,6 +39,7 @@ class LocationPage extends StatelessWidget {
                         () => Gmap(
                           latitude: ctrl.Latitude.value,
                           longitude: ctrl.Longitude.value,
+                          listOfLats: ctrl.latslongs,
                         ),
                       ),
                 Positioned(
@@ -126,7 +128,15 @@ class LocationPage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).primaryColor.withOpacity(1),
                       ),
-                      onPressed: () => {},
+                      onPressed: () async {
+                        // call geoCode
+                        // ctrl.address1 = await ctrl.geoCode.reverseGeocoding(latitude: ctrl.latslongs[0].latitude, longitude: ctrl.latslongs[0].longitude);
+                        // Future.delayed(Duration(seconds: 1));
+                        // ctrl.address2 = await ctrl.geoCode.reverseGeocoding(latitude: ctrl.latslongs[0].latitude, longitude: ctrl.latslongs[0].longitude);
+
+                        ctrl.update();
+                        // convert latlong and update address(str)
+                      },
                       child: Text(
                         'Save',
                         style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),

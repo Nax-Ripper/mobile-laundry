@@ -32,9 +32,9 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
             // ignore: prefer_const_literals_to_create_immutables
             children: [
               Text('CURRENT LOCATION', style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 17)),
-              locator.address.streetAddress == null
+              locator.places.isEmpty
                   ? LoadingAnimationWidget.waveDots(color: GlobalVariables.primaryColor, size: 30)
-                  : Text('${locator.address.streetAddress}', style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 16)),
+                  : Text('${locator.places[2].name} , ${locator.places[2].locality}', style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 16)),
             ],
           );
         },

@@ -93,38 +93,27 @@ class _LocationSearchBarState extends State<LocationSearchBar> {
 
                         if (widget.fieldNumber == 1) {
                           log('index: 1');
-                          for (var i = 0; i < ctrl.LatLongs.listLaLong.length; i++) {
-                            if (i == 0) {
-                              ctrl.LatLongs.listLaLong[i].latitude = ctrl.Latitude.value;
-                              ctrl.LatLongs.listLaLong[i].longitude = ctrl.Longitude.value;
-                            }
-                          }
-                          // ctrl.LatLongs.listLaLong[0].latitude = ctrl.Latitude.value;
-                          // ctrl.LatLongs.listLaLong[0].longitude = ctrl.Longitude.value;
+
+                          // ctrl.latslongs[0].latitude = ctrl.Latitude.value;
+                          ctrl.latslongs[0].latitude = ctrl.Latitude.value;
+                          ctrl.latslongs[0].longitude = ctrl.Longitude.value;
+                          log('index 1 :${ctrl.latslongs[0].latitude}');
+
+                          ctrl.update();
                         }
                         if (widget.fieldNumber == 2) {
                           log('index: 2');
-                          for (var i = 0; i < ctrl.LatLongs.listLaLong.length; i++) {
-                            if (i == 1) {
-                              ctrl.LatLongs.listLaLong[i].latitude = ctrl.Latitude.value;
-                              ctrl.LatLongs.listLaLong[i].longitude = ctrl.Longitude.value;
-                            }
-                          }
+                          ctrl.latslongs[1].latitude = ctrl.Latitude.value;
+                          ctrl.latslongs[1].longitude = ctrl.Longitude.value;
 
-                          // ctrl.LatLongs.listLaLong[1].longitude = ctrl.Latitude.value;
-                          // ctrl.LatLongs.listLaLong[1].longitude = ctrl.Longitude.value;
+                          log('index 2 :${ctrl.latslongs[1].latitude}');
                         }
 
                         log('latitude : ${ctrl.Latitude.value}');
                         log('longitude : ${ctrl.Longitude.value}');
-                        //         if (kDebugMode) {
-                        //           log(''' latitude: ${ctrl.Latitude.value},
-                        // longitude: ${ctrl.Longitude.value},''');
 
-                        //         }
-
-                        ctrl.Latitude.value = ctrl.place.latitude ?? ctrl.Latitude.value;
-                        ctrl.Longitude.value = ctrl.place.longitude ?? ctrl.Longitude.value;
+                        // ctrl.Latitude.value = ctrl.place.latitude ?? ctrl.Latitude.value;
+                        // ctrl.Longitude.value = ctrl.place.longitude ?? ctrl.Longitude.value;
                         ctrl.autpCompletePlaces = [];
                         ctrl.update();
                       },
