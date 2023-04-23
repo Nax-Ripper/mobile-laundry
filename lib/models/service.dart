@@ -17,9 +17,8 @@ class Service {
     this.imageUrl,
     this.v,
     this.isSelected,
-     this.price,
+    this.price,
   });
-
 
   Service copyWith({
     String? id,
@@ -55,7 +54,7 @@ class Service {
 
   factory Service.fromMap(Map<String, dynamic> map) {
     return Service(
-      id: map['id'],
+      id: map['_id'],
       name: map['name'],
       description: map['description'],
       imageUrl: map['imageUrl'],
@@ -77,26 +76,20 @@ class Service {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is Service &&
-      other.id == id &&
-      other.name == name &&
-      other.description == description &&
-      other.imageUrl == imageUrl &&
-      other.v == v &&
-      other.isSelected == isSelected &&
-      other.price == price;
+        other.id == id &&
+        other.name == name &&
+        other.description == description &&
+        other.imageUrl == imageUrl &&
+        other.v == v &&
+        other.isSelected == isSelected &&
+        other.price == price;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-      name.hashCode ^
-      description.hashCode ^
-      imageUrl.hashCode ^
-      v.hashCode ^
-      isSelected.hashCode ^
-      price.hashCode;
+    return id.hashCode ^ name.hashCode ^ description.hashCode ^ imageUrl.hashCode ^ v.hashCode ^ isSelected.hashCode ^ price.hashCode;
   }
 }
 

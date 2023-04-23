@@ -2,13 +2,10 @@
 
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:geocode/geocode.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mobile_laundry/models/arguments_model.dart';
 import 'package:mobile_laundry/models/location_lat_long.dart';
 // import 'package:mobile_laundry/models/location_lat_long.dart';
 import 'package:mobile_laundry/models/place_autocomplete.dart';

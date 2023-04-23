@@ -13,7 +13,7 @@ import 'package:mobile_laundry/models/users_model.dart';
 import 'package:mobile_laundry/routes/route_name.dart';
 import 'package:mobile_laundry/views/admin/admin_home_page.dart';
 import 'package:mobile_laundry/views/home/home_page.dart';
-import 'package:mobile_laundry/widgets/bottom_bar.dart';
+import 'package:mobile_laundry/widgets/bottom_bar_customer.dart';
 import 'package:http/http.dart' as http;
 
 import '../../utils/http_handler.dart';
@@ -105,7 +105,7 @@ class AuthPage extends StatelessWidget {
               ));
             } else {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => BottomBar(),
+                builder: (context) => BottomBarCustomer(),
               ));
             }
           },

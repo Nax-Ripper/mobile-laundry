@@ -1,15 +1,28 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
+import 'dart:convert';
+import 'dart:developer';
+import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_stripe/flutter_stripe.dart' as stripPayment;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/order_details_controller.dart';
+import 'package:mobile_laundry/controllers/order_list_controller.dart';
+import 'package:mobile_laundry/widgets/bottom_bar_customer.dart';
 import 'package:mobile_laundry/widgets/normal_appbar.dart';
+import 'package:http/http.dart' as http;
 
-class OrderDetailsPage extends StatelessWidget {
+class OrderDetailsPage extends StatefulWidget {
   const OrderDetailsPage({super.key});
+
+  @override
+  State<OrderDetailsPage> createState() => _OrderDetailsPageState();
+}
+
+class _OrderDetailsPageState extends State<OrderDetailsPage> {
+  // Map<String, dynamic> paymentIntent;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +126,7 @@ class OrderDetailsPage extends StatelessWidget {
                         ListTile(
                           dense: true,
                           title: Text('Total'),
-                          trailing: Text('RM ${ctrl.getTotal()}'),
+                          trailing: Text('RM ${double.parse(ctrl.getTotal().toString()).toStringAsFixed(2)}'),
                         )
                       ],
                     ),
@@ -126,15 +139,49 @@ class OrderDetailsPage extends StatelessWidget {
                   width: 160,
                   child: ElevatedButton(
                     onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return Container(
-                            height: 300,
-                            child: Center(child: Text('Hello')),
-                          );
-                        },
-                      );
+                      ctrl.makePayment(context);
+                      // showModalBottomSheet(
+                      //   elevation: 15,
+                      //   // backgroundColor: Colors.grey,
+                      //   useSafeArea: true,
+                      //   context: context,
+                      //   builder: (context) {
+                      //     return SingleChildScrollView(
+                      //       controller: ScrollController(),
+                      //       child: Center(
+                      //         child: Padding(
+                      //           padding: const EdgeInsets.all(20),
+                      //           child: Container(
+                      //             height: 500,
+                      //             child: Column(
+                      //               children: [
+                      //                 stripeCard.CardFormField(
+                      //                   controller: stripeCard.CardFormEditController(),
+                      //                   style: stripeCard.CardFormStyle(
+                      //                     // borderWidth: 10,
+                      //                     // borderColor: Colors.green,
+                      //                     borderRadius: 10,
+                      //                     textErrorColor: Colors.red,
+                      //                     backgroundColor: GlobalVariables.secondaryColor,
+                      //                     textColor: Colors.black,
+                      //                     placeholderColor: Colors.black,
+                      //                   ),
+                      //                 ),
+                      //                 SizedBox(
+                      //                   width: MediaQuery.of(context).size.width,
+                      //                   child: ElevatedButton(
+                      //                     onPressed: () {},
+                      //                     child: Text('Pay'),
+                      //                   ),
+                      //                 )
+                      //               ],
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     );
+                      //   },
+                      // );
                     },
                     child: Text('Place Order!'),
                   ),
@@ -146,4 +193,101 @@ class OrderDetailsPage extends StatelessWidget {
       },
     );
   }
+
+  // displayPayment(BuildContext context) async {
+  //   try {
+  //     await stripPayment.Stripe.instance.presentPaymentSheet().then((value) {
+  //       CherryToast.success(title: Text('Payment Success!')).show(context);
+  //       // make paymentIntent = null
+  //     }).onError((error, stackTrace) {
+  //       log('Error---> $error $stackTrace');
+  //     });
+  //   } on stripPayment.StripeException catch (e) {
+  //     log('Payment Exception :${e.toString()}');
+  //     CherryToast.error(title: Text('Payment Cancelled, Try again ')).show(context);
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
+
+  // createPaymentIntent({required String amount, String currency = 'usd'}) async {
+  //   try {
+  //     var body = {
+  //       'amount': calculateAmount(amount),
+  //       'currency': currency,
+  //       'payment_method_types[]': 'card',
+  //       // 'payment_method_types': ['card']
+  //       // 'automatic_payment_methods{}': 'enabled:true',
+  //     };
+
+  //     var res = await http.post(
+  //       Uri.parse('https://api.stripe.com/v1/payment_intents'),
+  //       body: body,
+  //       headers: {
+  //         'Content-Type': 'application/x-www-form-urlencoded',
+  //         'Authorization': 'Bearer sk_test_51MyH5pAjrQIbGFrMXRC9mUVULcUgOYuPvLW9xS4hQP1y5akqzRSY6x0Xkd5MmPWGR9gNYvcETBlHlpkNzO2BB4Fw00GTDLPaNZ'
+  //       },
+  //     );
+
+  //     log('Payment Intend res : ${res.body}');
+  //     return jsonDecode(res.body);
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
+
+  // String calculateAmount(String amount) {
+  //   return (int.parse(amount) * 100).toString();
+  // }
+
+  // makePayment() async {
+  //   try {
+  //     var paymentIntent = await createPaymentIntent(amount: '10', currency: 'myr');
+  //     setState(() {});
+
+  //     log("client Secret ===>${jsonDecode(jsonEncode(paymentIntent))['client_secret']}");
+  //     // create payment sheet
+  //     await stripPayment.Stripe.instance
+  //         .initPaymentSheet(
+  //           paymentSheetParameters: stripPayment.SetupPaymentSheetParameters(
+  //             customFlow: true,
+  //             merchantDisplayName: 'Flutter Stripe Store Demo',
+  //             paymentIntentClientSecret: jsonDecode(jsonEncode(paymentIntent))['client_secret'],
+  //             // style: ThemeMode.system,
+  //           ),
+  //         )
+  //         .onError((error, stackTrace) => log(' Error on init : $error $stackTrace'));
+  //     setState(() {});
+
+  //     try {
+  //       await stripPayment.Stripe.instance.presentPaymentSheet().then((value) async {
+  //         await stripPayment.Stripe.instance.confirmPaymentSheetPayment().then((value) => CherryToast.success(title: Text('Payment Success!')).show(context));
+  //         paymentIntent = null;
+  //         Get.delete<OrderListController>(force: true);
+  //         Navigator.pushAndRemoveUntil(
+  //           context,
+  //           MaterialPageRoute(builder: (context) => BottomBar()),
+  //           (Route<dynamic> route) => false,
+  //         );
+
+  //         // Navigator.popUntil(context, ModalRoute.withName('/'));
+  //         // make paymentIntent = null
+  //       }).onError((stripPayment.LocalizedErrorMessage error, stackTrace) {
+  //         log('Error---> $error $stackTrace');
+  //         CherryToast.error(title: Text('${error.localizedMessage}')).show(context);
+  //       });
+  //     } on stripPayment.StripeException catch (e) {
+  //       log('Payment Exception :${e.toString()}');
+  //       CherryToast.error(title: Text('Payment Cancelled, Try again ')).show(context);
+  //     } catch (e) {
+  //       log(e.toString());
+  //     }
+
+  //     // await stripPayment.Stripe.instance.presentPaymentSheet();
+
+  //     // .then((value) => displayPayment(context),);
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
 }

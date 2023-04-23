@@ -2,14 +2,12 @@
 
 import 'dart:developer';
 
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_laundry/controllers/geo_location_controller.dart';
 import 'package:mobile_laundry/controllers/home_controller.dart';
-import 'package:mobile_laundry/models/arguments_model.dart';
 import 'package:mobile_laundry/routes/route_name.dart';
-import 'package:mobile_laundry/widgets/bottom_bar.dart';
 import 'package:mobile_laundry/widgets/custom_appbar.dart';
 
 class HomePage extends StatelessWidget {
@@ -105,118 +103,133 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Last Orders',
+                  'List of Orders',
                   // style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                   //       color: Color.fromARGB(255, 31, 102, 159),
                   //       fontSize: 20,
                   //     ),
                 ),
               ),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: hCtrl.orders.length,
-                  itemBuilder: (context, i) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        height: 90,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(244, 214, 212, 212).withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(Icons.local_laundry_service, size: 75),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Order #${hCtrl.orders[i].orderId}',
-                                  // style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                                  //       color: Theme.of(context).primaryColor,
-                                  //     ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            hCtrl.orders[i].startTime,
-                                            // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
-                                          ),
-                                          Text(
-                                            hCtrl.orders[i].StartDate,
-                                            // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black.withOpacity(0.6)),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Icon(
-                                        Icons.circle_outlined,
-                                        size: 15,
-                                        color: Colors.red,
-                                      ),
-                                      Text(
-                                        '--------',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                      Icon(
-                                        Icons.circle,
-                                        size: 15,
-                                        color: Colors.green,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            hCtrl.orders[i].endTime,
-                                            // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
-                                          ),
-                                          Text(
-                                            hCtrl.orders[i].EndDate,
-                                            // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black.withOpacity(0.6)),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
+              if (hCtrl.orderList.orders == null)
+                Center(
+                  child: CircularProgressIndicator(),
+                )
+              else if (hCtrl.orderList.orders?.length == 0)
+                Center(
+                  child: Text('No orders found'),
+                )
+              else
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: hCtrl.orderList.orders?.length,
+                    itemBuilder: (context, i) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          height: 90,
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(244, 214, 212, 212).withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Icon(Icons.local_laundry_service, size: 75),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'RM ${hCtrl.orders[i].amount}',
+                                  Text(
+                                    'Order #$i',
+                                    // style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                    //       color: Theme.of(context).primaryColor,
+                                    //     ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              DateFormat.jm().format(hCtrl.orderList.orders?[i].pickUpTime ?? DateTime.now()),
+                                              // hCtrl.orders[i].startTime,
+                                              // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
+                                            ),
+                                            Text(
+                                              DateFormat.yMd().format(hCtrl.orderList.orders?[i].pickUpTime ?? DateTime.now()),
+                                              // hCtrl.orders[i].StartDate,
+                                              // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black.withOpacity(0.6)),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Icon(
+                                          Icons.circle_outlined,
+                                          size: 15,
+                                          color: Colors.red,
+                                        ),
+                                        Text(
+                                          '--------',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        Icon(
+                                          Icons.circle,
+                                          size: 15,
+                                          color: Colors.green,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              DateFormat.jm().format(hCtrl.orderList.orders?[i].deliveryTime ?? DateTime.now()),
+                                              // hCtrl.orders[i].endTime,
+                                              // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
+                                            ),
+                                            Text(
+                                              DateFormat.yMd().format(hCtrl.orderList.orders?[i].pickUpTime ?? DateTime.now()),
+                                              // hCtrl.orders[i].EndDate,
+                                              // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black.withOpacity(0.6)),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      'RM ${double.parse((hCtrl.orderList.orders?[i].totalFee).toString()).toStringAsFixed(2)}',
+                                      // 'RM ${hCtrl.orders[i].amount}',
                                       // style: Theme.of(context).textTheme.displaySmall!.copyWith(
                                       //       color: Color.fromARGB(255, 173, 16, 69),
                                       //     ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text('pending')
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              )
+                      );
+                    },
+                  ),
+                )
             ],
           ),
         );

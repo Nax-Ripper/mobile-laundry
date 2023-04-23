@@ -1,28 +1,24 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:heroicons/heroicons.dart';
 import 'package:mobile_laundry/config/global_variables.dart';
-import 'package:mobile_laundry/controllers/geo_location_controller.dart';
-import 'package:mobile_laundry/controllers/order_list_controller.dart';
-import 'package:mobile_laundry/views/home/home_page.dart';
-import 'package:mobile_laundry/views/order/order_list_page.dart';
+import 'package:mobile_laundry/views/account/account_page.dart';
+import 'package:mobile_laundry/views/rider/delivery_page.dart';
+import 'package:mobile_laundry/views/rider/orders_page.dart';
 
-class BottomBar extends StatefulWidget {
+class BottomBarRider extends StatefulWidget {
   int? page;
-  BottomBar({
+  BottomBarRider({
     Key? key,
     this.page,
   }) : super(key: key);
 
   @override
-  State<BottomBar> createState() => _BottomBarState();
+  State<BottomBarRider> createState() => _BottomBarRiderState();
 }
 
-class _BottomBarState extends State<BottomBar> {
+class _BottomBarRiderState extends State<BottomBarRider> {
   int page = 0;
   @override
   void initState() {
@@ -31,30 +27,18 @@ class _BottomBarState extends State<BottomBar> {
     page = widget.page ?? 0;
   }
 
-  // GeoLocationController locator = Get.find<GeoLocationController>().initialized
-  //         ? Get.find<GeoLocationController>()
-  //         : Get.put(GeoLocationController());
-  GeoLocationController loctor = Get.put(GeoLocationController());
-  double bottomBarWidth = 42;
-
   void setPage(int newPage) {
     setState(() {
-      log('newPage:$newPage');
-      log('page :$page');
       page = newPage;
     });
-    if (page == 2) {
-      Get.delete<OrderListController>(force: true);
-    }
   }
 
   List<Widget> pages = [
-    HomePage(),
-    OrderListPage(),
-    Center(
-      child: Text('Account Page'),
-    ),
+    OrdersPage(),
+    DeliveryPage(),
+    AccountPage(),
   ];
+  double bottomBarWidth = 42;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +59,10 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                 ),
               ),
-              child: Icon(Icons.home),
+              child: const Icon(
+                Icons.bookmark_border,
+              ),
+              // child: const HeroIcon(HeroIcons.calendar),
             ),
           ),
           BottomNavigationBarItem(
@@ -90,7 +77,10 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                 ),
               ),
-              child: Icon(Icons.add_box_rounded),
+              // child: const HeroIcon(HeroIcons.handRaised),
+              child: const Icon(
+                Icons.directions_bike,
+              ),
               //  badges.Badge(
               //   badgeContent: Text('2'),
               //   badgeStyle: badges.BadgeStyle(
@@ -113,15 +103,11 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                 ),
               ),
-              child: Icon(Icons.person),
+              child: const Icon(Icons.person),
+              // child: HeroIcon(HeroIcons.),
             ),
           ),
         ],
-        currentIndex: page,
-        selectedItemColor: GlobalVariables.primaryColor,
-        unselectedItemColor: GlobalVariables.unselectedNavBarColor,
-        backgroundColor: GlobalVariables.backgroundColor,
-        iconSize: 28,
       ),
     );
   }

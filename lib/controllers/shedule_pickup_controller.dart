@@ -12,10 +12,8 @@ import 'package:mobile_laundry/controllers/auth_controller.dart';
 import 'package:mobile_laundry/controllers/order_list_controller.dart';
 import 'package:mobile_laundry/models/arguments_model.dart';
 import 'package:mobile_laundry/models/payments_method_model.dart';
-import 'package:mobile_laundry/models/pickup_delivery_address_model.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:mobile_laundry/utils/http_handler.dart';
 
 // enum payments {
 //  'payments'
@@ -82,10 +80,10 @@ class SheduleController extends GetxController {
     ),
   ];
 
-  PickupDelivery address = PickupDelivery(
-    delivery: 'KP UTM',
-    pickup: 'KP UTM',
-  );
+  // PickupDelivery address = PickupDelivery(
+  //   delivery: 'KP UTM',
+  //   pickup: 'KP UTM',
+  // );
 
   getRiderFee() async {
     try {
