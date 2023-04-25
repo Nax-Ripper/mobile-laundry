@@ -12,6 +12,7 @@ import 'package:mobile_laundry/views/checkout/order_details_page.dart';
 import 'package:mobile_laundry/views/location/location_page.dart';
 import 'package:mobile_laundry/views/order/order_list_page.dart';
 import 'package:mobile_laundry/views/order/pickup_shedule_page.dart';
+import 'package:mobile_laundry/views/rider/selected_order_details_page.dart';
 
 import '../views/home/home_page.dart';
 
@@ -33,6 +34,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case RouteName.pickupShedulePage:
       return MaterialPageRoute(
         builder: (_) => PickUpShedulePage(),
+      );
+
+       case RouteName.selectedOrderDetailsPage:
+      return MaterialPageRoute(
+        builder: (_) => SelectedOrderDetailsPage(),
       );
     case RouteName.orderListPage:
       args = routeSettings.arguments as Args?;

@@ -66,7 +66,8 @@ class Service {
 
   String toJson() => json.encode(toMap());
 
-  factory Service.fromJson(String source) => Service.fromMap(json.decode(source));
+  factory Service.fromJson(String source) =>
+      Service.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -89,7 +90,13 @@ class Service {
 
   @override
   int get hashCode {
-    return id.hashCode ^ name.hashCode ^ description.hashCode ^ imageUrl.hashCode ^ v.hashCode ^ isSelected.hashCode ^ price.hashCode;
+    return id.hashCode ^
+        name.hashCode ^
+        description.hashCode ^
+        imageUrl.hashCode ^
+        v.hashCode ^
+        isSelected.hashCode ^
+        price.hashCode;
   }
 }
 
@@ -99,7 +106,9 @@ class Services {
   Services({this.service});
 
   factory Services.fromMap(Map<String, dynamic> data) => Services(
-        service: (data['service'] as List<dynamic>?)?.map((e) => Service.fromMap(e as Map<String, dynamic>)).toList(),
+        service: (data['service'] as List<dynamic>?)
+            ?.map((e) => Service.fromMap(e as Map<String, dynamic>))
+            .toList(),
       );
 
   Map<String, dynamic> toMap() => {

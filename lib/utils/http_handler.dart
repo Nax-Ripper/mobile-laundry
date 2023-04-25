@@ -5,7 +5,10 @@ import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-void httpHandler({required http.Response res, required BuildContext context, required VoidCallback onSuccess}) {
+void httpHandler(
+    {required http.Response res,
+    required BuildContext context,
+    required VoidCallback onSuccess}) {
   log('Res : ${res.body}');
 
   switch (res.statusCode) {

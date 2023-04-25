@@ -76,7 +76,8 @@ class OrderListController extends GetxController {
   }
 
   getServices() async {
-    http.Response res = await http.get(Uri.parse('$uri/api/get-services'), headers: {
+    http.Response res =
+        await http.get(Uri.parse('$uri/api/get-services'), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'x-auth-token': authUser.user.token,
     });
@@ -100,5 +101,4 @@ class OrderListController extends GetxController {
     update();
     return isSelect;
   }
-
 }

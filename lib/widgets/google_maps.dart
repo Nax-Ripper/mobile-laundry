@@ -27,7 +27,6 @@ class Gmap extends StatefulWidget {
 class _GmapState extends State<Gmap> {
   @override
   Widget build(BuildContext context) {
-   
     GeoLocationController locator = Get.find<GeoLocationController>();
 
     return GetBuilder(
@@ -42,23 +41,27 @@ class _GmapState extends State<Gmap> {
           icon: BitmapDescriptor.defaultMarker,
           // position: LatLng(latitude, longitude),
           // position: LatLng(ctrl.latslongs[0].latitude ?? 0, ctrl.latslongs[0].longitude ?? 0),
-          position: LatLng(widget.listOfLats![0].latitude, widget.listOfLats![0].longitude),
+          position: LatLng(
+              widget.listOfLats![0].latitude, widget.listOfLats![0].longitude),
           // position: LatLng(widget.latitude, widget.longitude),
         );
 
         Marker _dobiIOI = Marker(
           markerId: MarkerId('_dobiIOI'),
           infoWindow: InfoWindow(title: 'DobiIOI'),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
           position: LatLng(2.499571073897077, 102.85764956066805),
         );
 
         Marker _delivery = Marker(
           markerId: MarkerId('_delivery'),
           infoWindow: InfoWindow(title: 'Delivery'),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
           // position: LatLng(latitude, longitude),
-          position: LatLng(widget.listOfLats![1].latitude, widget.listOfLats![1].longitude),
+          position: LatLng(
+              widget.listOfLats![1].latitude, widget.listOfLats![1].longitude),
         );
 
         Polyline _kPolyline = Polyline(
@@ -67,9 +70,11 @@ class _GmapState extends State<Gmap> {
               // LatLng(2.4978472567790244, 102.85496296940443),
               // LatLng(2.499571073897077, 102.85764956066805),
               // LatLng(2.495510157382259, 102.85371210727995),
-              LatLng(widget.listOfLats![0].latitude, widget.listOfLats![0].longitude),
+              LatLng(widget.listOfLats![0].latitude,
+                  widget.listOfLats![0].longitude),
               LatLng(2.499571073897077, 102.85764956066805),
-              LatLng(widget.listOfLats![1].latitude, widget.listOfLats![1].longitude),
+              LatLng(widget.listOfLats![1].latitude,
+                  widget.listOfLats![1].longitude),
             ],
             width: 3,
             jointType: JointType.round,
@@ -86,7 +91,8 @@ class _GmapState extends State<Gmap> {
             myLocationButtonEnabled: true,
             initialCameraPosition: CameraPosition(
               // target: LatLng(widget.latitude, widget.longitude),
-              target: LatLng(widget.listOfLats![0].latitude, widget.listOfLats![0].longitude),
+              target: LatLng(widget.listOfLats![0].latitude,
+                  widget.listOfLats![0].longitude),
               zoom: 12,
             ),
           ),

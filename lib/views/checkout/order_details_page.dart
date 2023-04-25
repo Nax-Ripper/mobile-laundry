@@ -76,7 +76,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 // child: Text('Wash & Dry'),
                                 child: Text(ctrl.getSelectedSerivce()),
                               ),
@@ -90,8 +91,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       child: ListTile(
                                         dense: true,
                                         title: Text(ctrl.products[i].name!),
-                                        subtitle: Text('Quantity: ${ctrl.products[i].quantity}'),
-                                        trailing: Text('RM ${double.parse((ctrl.products[i].quantity! * ctrl.products[i].price!).toStringAsFixed(2))}'),
+                                        subtitle: Text(
+                                            'Quantity: ${ctrl.products[i].quantity}'),
+                                        trailing: Text(
+                                            'RM ${double.parse((ctrl.products[i].quantity! * ctrl.products[i].price!).toStringAsFixed(2))}'),
                                       ),
                                     );
                                   },
@@ -107,7 +110,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         ListTile(
                           dense: true,
                           title: Text('SubTotal'),
-                          trailing: Text('RM ${double.parse((ctrl.subTotal).toStringAsFixed(2))}'),
+                          trailing: Text(
+                              'RM ${double.parse((ctrl.subTotal).toStringAsFixed(2))}'),
                         ),
                         ListTile(
                           dense: true,
@@ -117,7 +121,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         ListTile(
                           dense: true,
                           title: Text('Service Fee'),
-                          trailing: Text('RM ${ctrl.orderListCtrl.selectedService.price}'),
+                          trailing: Text(
+                              'RM ${ctrl.orderListCtrl.selectedService.price}'),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -126,7 +131,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         ListTile(
                           dense: true,
                           title: Text('Total'),
-                          trailing: Text('RM ${double.parse(ctrl.getTotal().toString()).toStringAsFixed(2)}'),
+                          trailing: Text(
+                              'RM ${double.parse(ctrl.getTotal().toString()).toStringAsFixed(2)}'),
                         )
                       ],
                     ),

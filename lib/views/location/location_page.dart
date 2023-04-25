@@ -126,7 +126,8 @@ class LocationPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 70),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor.withOpacity(1),
+                        backgroundColor:
+                            Theme.of(context).primaryColor.withOpacity(1),
                       ),
                       onPressed: () async {
                         // call geoCode
@@ -139,7 +140,10 @@ class LocationPage extends StatelessWidget {
                       },
                       child: Text(
                         'Save',
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(color: Colors.white),
                       ),
                     ),
                   ),

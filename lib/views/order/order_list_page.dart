@@ -67,24 +67,35 @@ class _OrderListPageState extends State<OrderListPage> {
                           child: InkWell(
                             onTap: () {
                               log('orderList $i');
-                              for (var j = 0; j < ctrl.servicesList.service!.length; j++) {
-                                ctrl.servicesList.service![j].isSelected = false;
+                              for (var j = 0;
+                                  j < ctrl.servicesList.service!.length;
+                                  j++) {
+                                ctrl.servicesList.service![j].isSelected =
+                                    false;
                               }
                               ctrl.servicesList.service![i].isSelected = true;
 
-                              ctrl.selectedServicePrice.value = ctrl.servicesList.service![i].price!;
-                              ctrl.selectedService = ctrl.servicesList.service![i];
+                              ctrl.selectedServicePrice.value =
+                                  ctrl.servicesList.service![i].price!;
+                              ctrl.selectedService =
+                                  ctrl.servicesList.service![i];
                               log('${ctrl.servicesList.service![i].price}');
                               ctrl.update();
                             },
                             child: ctrl.servicesList.service == null
-                                ? LoadingAnimationWidget.discreteCircle(color: GlobalVariables.primaryColor, size: 30)
+                                ? LoadingAnimationWidget.discreteCircle(
+                                    color: GlobalVariables.primaryColor,
+                                    size: 30)
                                 : Container(
                                     width: 110,
                                     height: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: ctrl.servicesList.service![i].isSelected == true ? GlobalVariables.primaryColor : Colors.white,
+                                      color: ctrl.servicesList.service![i]
+                                                  .isSelected ==
+                                              true
+                                          ? GlobalVariables.primaryColor
+                                          : Colors.white,
                                       shape: BoxShape.rectangle,
                                       boxShadow: [
                                         BoxShadow(color: Colors.pink),
@@ -118,7 +129,8 @@ class _OrderListPageState extends State<OrderListPage> {
                           padding: EdgeInsets.all(8),
                           height: 90,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(244, 214, 212, 212).withOpacity(0.5),
+                            color: Color.fromARGB(244, 214, 212, 212)
+                                .withOpacity(0.5),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Row(
@@ -127,19 +139,28 @@ class _OrderListPageState extends State<OrderListPage> {
                               Row(
                                 children: [
                                   ctrl.products.isEmpty
-                                      ? LoadingAnimationWidget.inkDrop(color: GlobalVariables.primaryColor, size: 30)
+                                      ? LoadingAnimationWidget.inkDrop(
+                                          color: GlobalVariables.primaryColor,
+                                          size: 30)
                                       : SizedBox(
                                           child: Image.network(
                                             ctrl.products[i].images![0],
-                                            loadingBuilder: (context, child, loadingProgress) {
-                                              if (loadingProgress == null) return child;
-                                              return LoadingAnimationWidget.inkDrop(color: GlobalVariables.primaryColor, size: 30);
+                                            loadingBuilder: (context, child,
+                                                loadingProgress) {
+                                              if (loadingProgress == null)
+                                                return child;
+                                              return LoadingAnimationWidget
+                                                  .inkDrop(
+                                                      color: GlobalVariables
+                                                          .primaryColor,
+                                                      size: 30);
                                             },
                                           ),
                                         ),
                                   SizedBox(width: 15),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
@@ -166,20 +187,25 @@ class _OrderListPageState extends State<OrderListPage> {
                                         ctrl.totalQty.value--;
                                       }
                                       if (ctrl.products[i].quantity! > 0) {
-                                        ctrl.products[i].quantity = ctrl.products[i].quantity! - 1;
+                                        ctrl.products[i].quantity =
+                                            ctrl.products[i].quantity! - 1;
                                       }
                                       if (ctrl.totalAmount.value > 0.0) {
-                                        ctrl.totalAmount.value -= ctrl.products[i].price!;
+                                        ctrl.totalAmount.value -=
+                                            ctrl.products[i].price!;
                                       }
 
-                                      if (ctrl.totalQty.value == 0) ctrl.isVisible.value = false;
+                                      if (ctrl.totalQty.value == 0)
+                                        ctrl.isVisible.value = false;
                                       ctrl.update();
                                     },
                                     child: Container(
                                       padding: EdgeInsets.all(2),
                                       decoration: BoxDecoration(
                                         // borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(color: GlobalVariables.primaryColor),
+                                        border: Border.all(
+                                            color:
+                                                GlobalVariables.primaryColor),
                                         shape: BoxShape.circle,
                                       ),
                                       child: Icon(Icons.remove),
@@ -195,9 +221,12 @@ class _OrderListPageState extends State<OrderListPage> {
                                     onTap: () {
                                       ctrl.totalQty.value++;
                                       // ctrl.products[i].quantity++;
-                                      ctrl.products[i].quantity = ctrl.products[i].quantity! + 1;
-                                      ctrl.totalAmount.value += ctrl.products[i].price!;
-                                      if (ctrl.totalQty.value > 0) ctrl.isVisible.value = true;
+                                      ctrl.products[i].quantity =
+                                          ctrl.products[i].quantity! + 1;
+                                      ctrl.totalAmount.value +=
+                                          ctrl.products[i].price!;
+                                      if (ctrl.totalQty.value > 0)
+                                        ctrl.isVisible.value = true;
 
                                       ctrl.update();
                                     },
@@ -205,7 +234,9 @@ class _OrderListPageState extends State<OrderListPage> {
                                       padding: EdgeInsets.all(2),
                                       decoration: BoxDecoration(
                                         // borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(color: GlobalVariables.primaryColor),
+                                        border: Border.all(
+                                            color:
+                                                GlobalVariables.primaryColor),
                                         shape: BoxShape.circle,
                                       ),
                                       child: Icon(Icons.add),
@@ -248,7 +279,8 @@ class _OrderListPageState extends State<OrderListPage> {
                               children: [
                                 SizedBox(width: 20),
                                 // Icon(Icons.local_shipping_rounded, size: 30),
-                                Image.asset('lib/assets/parcel_box.png', height: 30, fit: BoxFit.fill),
+                                Image.asset('lib/assets/parcel_box.png',
+                                    height: 30, fit: BoxFit.fill),
                                 SizedBox(
                                   width: 10,
                                 ),
@@ -292,11 +324,13 @@ class _OrderListPageState extends State<OrderListPage> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.85,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(backgroundColor: GlobalVariables.primaryColor),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: GlobalVariables.primaryColor),
                           onPressed: () {
                             // ctrl.isVisible.value = false;'
                             if (ctrl.checkIsServiceSelected() == true) {
-                              Navigator.pushNamed(context, RouteName.pickupShedulePage);
+                              Navigator.pushNamed(
+                                  context, RouteName.pickupShedulePage);
                             } else {
                               log('false');
                               CherryToast.warning(

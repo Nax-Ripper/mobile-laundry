@@ -109,7 +109,8 @@ class OrderDetailsController extends GetxController {
 
     String formattedDate = '';
 
-    return formattedDate = '${DateFormat.jm().format(now)} ${DateFormat.yMEd().format(now)}';
+    return formattedDate =
+        '${DateFormat.jm().format(now)} ${DateFormat.yMEd().format(now)}';
   }
 
   String calculateAmount(String amount) {
@@ -132,7 +133,8 @@ class OrderDetailsController extends GetxController {
       });
     } on StripeException catch (e) {
       log('Payment Exception :${e.toString()}');
-      CherryToast.error(title: Text('Payment Cancelled, Try again ')).show(context);
+      CherryToast.error(title: Text('Payment Cancelled, Try again '))
+          .show(context);
     } catch (e) {
       log(e.toString());
     }
@@ -154,7 +156,8 @@ class OrderDetailsController extends GetxController {
         body: body,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer sk_test_51MyH5pAjrQIbGFrMXRC9mUVULcUgOYuPvLW9xS4hQP1y5akqzRSY6x0Xkd5MmPWGR9gNYvcETBlHlpkNzO2BB4Fw00GTDLPaNZ'
+          'Authorization':
+              'Bearer sk_test_51MyH5pAjrQIbGFrMXRC9mUVULcUgOYuPvLW9xS4hQP1y5akqzRSY6x0Xkd5MmPWGR9gNYvcETBlHlpkNzO2BB4Fw00GTDLPaNZ'
         },
       );
 
@@ -174,7 +177,8 @@ class OrderDetailsController extends GetxController {
 
   makePayment(BuildContext context) async {
     try {
-      var paymentIntent = await createPaymentIntent(amount: Total.toString(), currency: 'myr');
+      var paymentIntent =
+          await createPaymentIntent(amount: Total.toString(), currency: 'myr');
 
       log("client Secret ===>${jsonDecode(jsonEncode(paymentIntent))['client_secret']}");
 
@@ -186,15 +190,19 @@ class OrderDetailsController extends GetxController {
             paymentSheetParameters: SetupPaymentSheetParameters(
               customFlow: true,
               merchantDisplayName: 'Flutter Stripe Store Demo',
-              paymentIntentClientSecret: jsonDecode(jsonEncode(paymentIntent))['client_secret'],
+              paymentIntentClientSecret:
+                  jsonDecode(jsonEncode(paymentIntent))['client_secret'],
               style: ThemeMode.system,
             ),
           )
-          .onError((error, stackTrace) => log(' Error on init : $error $stackTrace'));
+          .onError((error, stackTrace) =>
+              log(' Error on init : $error $stackTrace'));
 
       try {
         await Stripe.instance.presentPaymentSheet().then((value) async {
-          await Stripe.instance.confirmPaymentSheetPayment().then((value) => CherryToast.success(title: const Text('Payment Success!')).show(context));
+          await Stripe.instance.confirmPaymentSheetPayment().then((value) =>
+              CherryToast.success(title: const Text('Payment Success!'))
+                  .show(context));
 
           order = Orders(
             pickUpTime: sheduleCtrl.pickUpTime.value,
@@ -224,17 +232,20 @@ class OrderDetailsController extends GetxController {
             MaterialPageRoute(builder: (context) => BottomBarCustomer()),
             (Route<dynamic> route) => false,
           );
-          CherryToast.success(title: const Text('Payment Success!')).show(context);
+          CherryToast.success(title: const Text('Payment Success!'))
+              .show(context);
 
           // Navigator.popUntil(context, ModalRoute.withName('/'));
           paymentIntent = null;
         }).onError((LocalizedErrorMessage error, stackTrace) {
           log('Error---> $error $stackTrace');
-          CherryToast.error(title: Text('${error.localizedMessage}')).show(context);
+          CherryToast.error(title: Text('${error.localizedMessage}'))
+              .show(context);
         });
       } on StripeException catch (e) {
         log('Payment Exception :${e.toString()}');
-        CherryToast.error(title: const Text('Payment Cancelled, Try again ')).show(context);
+        CherryToast.error(title: const Text('Payment Cancelled, Try again '))
+            .show(context);
       } catch (e) {
         log(e.toString());
       }

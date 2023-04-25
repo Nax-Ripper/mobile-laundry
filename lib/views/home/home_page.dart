@@ -76,15 +76,20 @@ class HomePage extends StatelessWidget {
                                             child: Container(
                                               height: 80,
                                               width: 80,
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
-                                              child: Image.network('${hCtrl.servicesList.service![i].imageUrl}'),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  color: Colors.white),
+                                              child: Image.network(
+                                                  '${hCtrl.servicesList.service![i].imageUrl}'),
                                             ),
                                           ),
                                         ),
                                         Align(
                                           alignment: Alignment.bottomCenter,
                                           child: Text(
-                                            hCtrl.servicesList.service![i].name!,
+                                            hCtrl
+                                                .servicesList.service![i].name!,
                                             // style: Theme.of(context).textTheme.displaySmall,
                                           ),
                                         ),
@@ -130,7 +135,8 @@ class HomePage extends StatelessWidget {
                           padding: EdgeInsets.all(8),
                           height: 90,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(244, 214, 212, 212).withOpacity(0.5),
+                            color: Color.fromARGB(244, 214, 212, 212)
+                                .withOpacity(0.5),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Row(
@@ -151,15 +157,24 @@ class HomePage extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              DateFormat.jm().format(hCtrl.orderList.orders?[i].pickUpTime ?? DateTime.now()),
+                                              DateFormat.jm().format(hCtrl
+                                                      .orderList
+                                                      .orders?[i]
+                                                      .pickUpTime ??
+                                                  DateTime.now()),
                                               // hCtrl.orders[i].startTime,
                                               // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
                                             ),
                                             Text(
-                                              DateFormat.yMd().format(hCtrl.orderList.orders?[i].pickUpTime ?? DateTime.now()),
+                                              DateFormat.yMd().format(hCtrl
+                                                      .orderList
+                                                      .orders?[i]
+                                                      .pickUpTime ??
+                                                  DateTime.now()),
                                               // hCtrl.orders[i].StartDate,
                                               // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black.withOpacity(0.6)),
                                             ),
@@ -186,15 +201,24 @@ class HomePage extends StatelessWidget {
                                           width: 10,
                                         ),
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              DateFormat.jm().format(hCtrl.orderList.orders?[i].deliveryTime ?? DateTime.now()),
+                                              DateFormat.jm().format(hCtrl
+                                                      .orderList
+                                                      .orders?[i]
+                                                      .deliveryTime ??
+                                                  DateTime.now()),
                                               // hCtrl.orders[i].endTime,
                                               // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
                                             ),
                                             Text(
-                                              DateFormat.yMd().format(hCtrl.orderList.orders?[i].pickUpTime ?? DateTime.now()),
+                                              DateFormat.yMd().format(hCtrl
+                                                      .orderList
+                                                      .orders?[i]
+                                                      .pickUpTime ??
+                                                  DateTime.now()),
                                               // hCtrl.orders[i].EndDate,
                                               // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black.withOpacity(0.6)),
                                             ),
@@ -279,7 +303,8 @@ class BookNowBanner extends StatelessWidget {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor.withOpacity(1),
+                        backgroundColor:
+                            Theme.of(context).primaryColor.withOpacity(1),
                       ),
                       onPressed: () {},
                       child: Text(

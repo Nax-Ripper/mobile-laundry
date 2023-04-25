@@ -12,7 +12,8 @@ import 'package:mobile_laundry/widgets/bottom_bar_rider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Stripe.publishableKey = 'pk_test_51MyH5pAjrQIbGFrMLIS4WYyUDtJ3qKxwLWIHlfhRvmUleTSQ8cgyqWHSTOZp0xIgSlloHMmzUrKv25mqbYeAq7I600QWkMiNaJ';
+  Stripe.publishableKey =
+      'pk_test_51MyH5pAjrQIbGFrMLIS4WYyUDtJ3qKxwLWIHlfhRvmUleTSQ8cgyqWHSTOZp0xIgSlloHMmzUrKv25mqbYeAq7I600QWkMiNaJ';
   Stripe.merchantIdentifier = 'any string works';
   await Stripe.instance.applySettings();
   runApp(const MyApp());
@@ -33,7 +34,9 @@ class _MyAppState extends State<MyApp> {
     @override
     void initState() {
       super.initState();
-      getX = Get.find<AuthController>().initialized ? Get.find<AuthController>() : Get.put(AuthController());
+      getX = Get.find<AuthController>().initialized
+          ? Get.find<AuthController>()
+          : Get.put(AuthController());
     }
 
     return MaterialApp(

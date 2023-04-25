@@ -29,8 +29,7 @@ class SheduleController extends GetxController {
   Rx<DateTime> pickUpTime = DateTime.now().add(const Duration(hours: 1)).obs;
   Rx<DateTime> deliveryTime = DateTime.now().add(const Duration(hours: 3)).obs;
   AuthController authUser = Get.find<AuthController>();
-      Args args = Args();
-
+  Args args = Args();
 
   @override
   void onInit() {
@@ -87,7 +86,8 @@ class SheduleController extends GetxController {
 
   getRiderFee() async {
     try {
-      http.Response res = await http.get(Uri.parse('$uri/api/get-rider-fee'), headers: {
+      http.Response res =
+          await http.get(Uri.parse('$uri/api/get-rider-fee'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': authUser.user.token,
       });
@@ -97,7 +97,6 @@ class SheduleController extends GetxController {
 
       riderFee.value = json.decode(res.body)['riderFee'];
       update();
-
     } catch (e) {
       log(e.toString());
     }

@@ -67,14 +67,19 @@ class Orders {
   factory Orders.fromMap(Map<String, dynamic> map) {
     return Orders(
       serviceId: map['serviceId'],
-      products: map['products'] != null ? List<Product>.from(map['products']?.map((x) => Product.fromMap(x))) : null,
+      products: map['products'] != null
+          ? List<Product>.from(map['products']?.map((x) => Product.fromMap(x)))
+          : null,
       subTotal: map['subTotal']?.toDouble(),
       serviceFee: map['serviceFee']?.toInt(),
       totalFee: map['totalFee']?.toDouble(),
       userId: map['userId'],
       intendId: map['intendId'],
-      pickUpTime: map['pickUpTime'] != null ? DateTime.parse(map['pickUpTime']) : null,
-      deliveryTime: map['deliveryTime'] != null ? DateTime.parse(map['deliveryTime']) : null,
+      pickUpTime:
+          map['pickUpTime'] != null ? DateTime.parse(map['pickUpTime']) : null,
+      deliveryTime: map['deliveryTime'] != null
+          ? DateTime.parse(map['deliveryTime'])
+          : null,
       riderFee: map['riderFee']?.toInt(),
       status: map['status']?.toInt(),
       pickupLat: map['pickupLat']?.toDouble(),
@@ -105,11 +110,14 @@ class OrdersLists {
 
   factory OrdersLists.fromMap(Map<String, dynamic> map) {
     return OrdersLists(
-      orders: map['orders'] != null ? List<Orders>.from(map['orders']?.map((x) => Orders.fromMap(x))) : null,
+      orders: map['orders'] != null
+          ? List<Orders>.from(map['orders']?.map((x) => Orders.fromMap(x)))
+          : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory OrdersLists.fromJson(String source) => OrdersLists.fromMap(json.decode(source));
+  factory OrdersLists.fromJson(String source) =>
+      OrdersLists.fromMap(json.decode(source));
 }

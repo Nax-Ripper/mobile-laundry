@@ -70,7 +70,9 @@ class _BottomBarCustomerState extends State<BottomBarCustomer> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: page == 0 ? GlobalVariables.primaryColor : GlobalVariables.backgroundColor,
+                    color: page == 0
+                        ? GlobalVariables.primaryColor
+                        : GlobalVariables.backgroundColor,
                     width: 5,
                   ),
                 ),
@@ -85,7 +87,9 @@ class _BottomBarCustomerState extends State<BottomBarCustomer> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: page == 1 ? GlobalVariables.primaryColor : GlobalVariables.backgroundColor,
+                    color: page == 1
+                        ? GlobalVariables.primaryColor
+                        : GlobalVariables.backgroundColor,
                     width: 5,
                   ),
                 ),
@@ -108,7 +112,9 @@ class _BottomBarCustomerState extends State<BottomBarCustomer> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: page == 2 ? GlobalVariables.primaryColor : GlobalVariables.backgroundColor,
+                    color: page == 2
+                        ? GlobalVariables.primaryColor
+                        : GlobalVariables.backgroundColor,
                     width: 5,
                   ),
                 ),

@@ -25,7 +25,8 @@ class PickUpShedulePage extends StatefulWidget {
 class _PickUpShedulePageState extends State<PickUpShedulePage> {
   @override
   Widget build(BuildContext context) {
-    var ctrl = Get.put<SheduleController>(SheduleController(), permanent: false);
+    var ctrl =
+        Get.put<SheduleController>(SheduleController(), permanent: false);
     var geoLocatorCtrl = Get.find<GeoLocationController>();
 
     @override
@@ -192,11 +193,15 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                           log('Pick Time');
                           DatePicker.showDateTimePicker(
                             context,
-                            minTime: DateTime.now().add(const Duration(hours: 1)),
-                            maxTime: DateTime.now().add(const Duration(days: 10)),
+                            minTime:
+                                DateTime.now().add(const Duration(hours: 1)),
+                            maxTime:
+                                DateTime.now().add(const Duration(days: 10)),
                             theme: DatePickerTheme(
-                              doneStyle: TextStyle(color: GlobalVariables.primaryColor),
-                              itemStyle: TextStyle(color: GlobalVariables.primaryColor),
+                              doneStyle: TextStyle(
+                                  color: GlobalVariables.primaryColor),
+                              itemStyle: TextStyle(
+                                  color: GlobalVariables.primaryColor),
                               cancelStyle: TextStyle(color: Colors.red),
                               // headerColor: GlobalVariables.primaryColor,
                             ),
@@ -222,7 +227,8 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                SvgPicture.asset('lib/assets/calendar_add.svg', height: 35),
+                                SvgPicture.asset('lib/assets/calendar_add.svg',
+                                    height: 35),
                                 SizedBox(
                                   width: 20,
                                 ),
@@ -232,13 +238,15 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                     Obx(
                                       () => Text(
                                         // 'Thu,1 Apr',
-                                        DateFormat.MMMEd().format(ctrl.pickUpTime.value),
+                                        DateFormat.MMMEd()
+                                            .format(ctrl.pickUpTime.value),
                                         // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black),
                                       ),
                                     ),
                                     Obx(
                                       () => Text(
-                                        DateFormat.jm().format(ctrl.pickUpTime.value),
+                                        DateFormat.jm()
+                                            .format(ctrl.pickUpTime.value),
                                         // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
                                       ),
                                     )
@@ -256,10 +264,13 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                           DatePicker.showDateTimePicker(
                             context,
                             minTime: ctrl.pickUpTime.value,
-                            maxTime: ctrl.pickUpTime.value.add(Duration(days: 2)),
+                            maxTime:
+                                ctrl.pickUpTime.value.add(Duration(days: 2)),
                             theme: DatePickerTheme(
-                              doneStyle: TextStyle(color: GlobalVariables.primaryColor),
-                              itemStyle: TextStyle(color: GlobalVariables.primaryColor),
+                              doneStyle: TextStyle(
+                                  color: GlobalVariables.primaryColor),
+                              itemStyle: TextStyle(
+                                  color: GlobalVariables.primaryColor),
                               cancelStyle: TextStyle(color: Colors.red),
                               // headerColor: GlobalVariables.primaryColor,
                             ),
@@ -282,7 +293,9 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                             Row(
                               children: [
                                 // Image.asset('lib/assets/calendar_check.png'),
-                                SvgPicture.asset('lib/assets/calendar_check.svg', height: 35),
+                                SvgPicture.asset(
+                                    'lib/assets/calendar_check.svg',
+                                    height: 35),
                                 SizedBox(
                                   width: 20,
                                 ),
@@ -290,13 +303,15 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                   children: [
                                     Obx(
                                       () => Text(
-                                        DateFormat.MMMEd().format(ctrl.deliveryTime.value),
+                                        DateFormat.MMMEd()
+                                            .format(ctrl.deliveryTime.value),
                                         // style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.black),
                                       ),
                                     ),
                                     Obx(
                                       () => Text(
-                                        DateFormat.jm().format(ctrl.deliveryTime.value),
+                                        DateFormat.jm()
+                                            .format(ctrl.deliveryTime.value),
                                         // style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.black),
                                       ),
                                     )
@@ -342,7 +357,9 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                 leading: Checkbox(
                                   value: ctrl.payments[index].isSelected,
                                   onChanged: (value) {
-                                    for (var i = 0; i < ctrl.payments.length; i++) {
+                                    for (var i = 0;
+                                        i < ctrl.payments.length;
+                                        i++) {
                                       ctrl.payments[i].isSelected = false;
                                     }
 
@@ -352,7 +369,9 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                   },
                                 ),
                                 title: Text(ctrl.payments[index].name ?? ''),
-                                trailing: SvgPicture.asset(ctrl.payments[index].image ?? '', height: 30),
+                                trailing: SvgPicture.asset(
+                                    ctrl.payments[index].image ?? '',
+                                    height: 30),
                               );
                             },
                           );
@@ -418,7 +437,9 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                               Column(
                                 children: [
                                   Icon(Icons.circle_outlined, size: 30),
-                                  RotatedBox(quarterTurns: 1, child: Text('----------')),
+                                  RotatedBox(
+                                      quarterTurns: 1,
+                                      child: Text('----------')),
                                   // SizedBox(height: 30, child: ),
                                   Icon(Icons.location_on, size: 30),
                                 ],
@@ -434,14 +455,25 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                             ctrl.args.index = 1;
                                             ctrl.args.title = 'PickUp Address';
                                             log('pickup');
-                                            Navigator.pushNamed(context, RouteName.locationPage, arguments: ctrl.args);
+                                            Navigator.pushNamed(
+                                                context, RouteName.locationPage,
+                                                arguments: ctrl.args);
                                             ctrl.update();
                                           },
-                                          child: geoLocatorCtrl.isCurrentLocationLoading.value == true
-                                              ? LoadingAnimationWidget.waveDots(color: GlobalVariables.primaryColor, size: 50)
+                                          child: geoLocatorCtrl
+                                                      .isCurrentLocationLoading
+                                                      .value ==
+                                                  true
+                                              ? LoadingAnimationWidget.waveDots(
+                                                  color: GlobalVariables
+                                                      .primaryColor,
+                                                  size: 50)
                                               : ListTile(
-                                                  title: Text('${geoLocatorCtrl.shortAddress1}'),
-                                                  subtitle: Text(geoLocatorCtrl.FullAddress1 ?? 'test'),
+                                                  title: Text(
+                                                      '${geoLocatorCtrl.shortAddress1}'),
+                                                  subtitle: Text(geoLocatorCtrl
+                                                          .FullAddress1 ??
+                                                      'test'),
                                                   // title: Text('${geoLocatorCtrl.placemarks[0].name}'),
                                                   // subtitle: Text(
                                                   //   '${geoLocatorCtrl.placemarks[0].street}, ${geoLocatorCtrl.placemarks[0].name} ,${geoLocatorCtrl.placemarks[0].subLocality},${geoLocatorCtrl.placemarks[0].postalCode} , ${geoLocatorCtrl.placemarks[0].administrativeArea} , ${geoLocatorCtrl.placemarks[0].country}',
@@ -449,7 +481,8 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                                 ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 30),
                                           child: Divider(
                                             thickness: 3,
                                             color: Colors.grey,
@@ -458,18 +491,30 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                         GestureDetector(
                                           onTap: () {
                                             ctrl.args.index = 2;
-                                            ctrl.args.title = 'Delivery Address';
+                                            ctrl.args.title =
+                                                'Delivery Address';
                                             log('deli');
-                                            Navigator.pushNamed(context, RouteName.locationPage, arguments: ctrl.args);
+                                            Navigator.pushNamed(
+                                                context, RouteName.locationPage,
+                                                arguments: ctrl.args);
                                             ctrl.update();
                                           },
-                                          child: geoLocatorCtrl.isCurrentLocationLoading.value == true
-                                              ? LoadingAnimationWidget.waveDots(color: GlobalVariables.primaryColor, size: 50)
+                                          child: geoLocatorCtrl
+                                                      .isCurrentLocationLoading
+                                                      .value ==
+                                                  true
+                                              ? LoadingAnimationWidget.waveDots(
+                                                  color: GlobalVariables
+                                                      .primaryColor,
+                                                  size: 50)
                                               : ListTile(
                                                   // title: Text('${ctrl.address.delivery}'),
                                                   // subtitle: Text('Full Address'),
-                                                  title: Text('${geoLocatorCtrl.shortAddress1}'),
-                                                  subtitle: Text(geoLocatorCtrl.FullAddress1 ?? 'test'),
+                                                  title: Text(
+                                                      '${geoLocatorCtrl.shortAddress1}'),
+                                                  subtitle: Text(geoLocatorCtrl
+                                                          .FullAddress1 ??
+                                                      'test'),
                                                 ),
                                         )
                                       ],
@@ -597,7 +642,8 @@ class _PickUpShedulePageState extends State<PickUpShedulePage> {
                                 width: 200,
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(context, RouteName.orderDetailsPage);
+                                      Navigator.pushNamed(
+                                          context, RouteName.orderDetailsPage);
                                     },
                                     child: Text('Checkout')),
                               ),

@@ -24,7 +24,8 @@ class LocationLatLong {
 
   String toJson() => json.encode(toMap());
 
-  factory LocationLatLong.fromJson(String source) => LocationLatLong.fromMap(json.decode(source));
+  factory LocationLatLong.fromJson(String source) =>
+      LocationLatLong.fromMap(json.decode(source));
 }
 
 class ListofLocationLatLong {
@@ -40,11 +41,13 @@ class ListofLocationLatLong {
 
   factory ListofLocationLatLong.fromMap(Map<String, dynamic> map) {
     return ListofLocationLatLong(
-      List<LocationLatLong>.from(map['listLaLong']?.map((x) => LocationLatLong.fromMap(x))),
+      List<LocationLatLong>.from(
+          map['listLaLong']?.map((x) => LocationLatLong.fromMap(x))),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ListofLocationLatLong.fromJson(String source) => ListofLocationLatLong.fromMap(json.decode(source));
+  factory ListofLocationLatLong.fromJson(String source) =>
+      ListofLocationLatLong.fromMap(json.decode(source));
 }

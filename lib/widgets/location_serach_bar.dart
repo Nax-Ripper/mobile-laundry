@@ -50,7 +50,8 @@ class _LocationSearchBarState extends State<LocationSearchBar> {
               Form(
                 child: TextField(
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(color: Colors.white),
@@ -61,11 +62,14 @@ class _LocationSearchBarState extends State<LocationSearchBar> {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    hintText: ctrl.isCurrentLocationLoading.value ? 'Loading...' : widget.hintText ?? 'Enter your Location',
+                    hintText: ctrl.isCurrentLocationLoading.value
+                        ? 'Loading...'
+                        : widget.hintText ?? 'Enter your Location',
                     suffixIcon: Icon(
                       Icons.search_rounded,
                     ),
-                    enabled: !ctrl.isCurrentLocationLoading.value && widget.isEnabled,
+                    enabled: !ctrl.isCurrentLocationLoading.value &&
+                        widget.isEnabled,
                   ),
                   onChanged: (value) => {
                     ctrl.getAutoComplete(
@@ -77,18 +81,24 @@ class _LocationSearchBarState extends State<LocationSearchBar> {
               Container(
                 margin: EdgeInsets.all(8),
                 height: 300,
-                color: ctrl.autpCompletePlaces.isNotEmpty ? Colors.black.withOpacity(0.6) : Colors.transparent,
+                color: ctrl.autpCompletePlaces.isNotEmpty
+                    ? Colors.black.withOpacity(0.6)
+                    : Colors.transparent,
                 child: ListView.builder(
                   itemCount: ctrl.autpCompletePlaces.length,
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(
                         ctrl.autpCompletePlaces[index].description,
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(color: Colors.white),
                       ),
                       onTap: () {
                         log(widget.hintText ?? '');
-                        ctrl.getPlace(placeId: ctrl.autpCompletePlaces[index].placeId);
+                        ctrl.getPlace(
+                            placeId: ctrl.autpCompletePlaces[index].placeId);
                         // log('tag :${Get.find<>()}')
 
                         if (widget.fieldNumber == 1) {
