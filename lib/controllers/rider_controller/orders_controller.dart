@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:geocoding/geocoding.dart';
@@ -6,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/auth_controller.dart';
+import 'package:mobile_laundry/models/orders_model.dart';
 import 'package:mobile_laundry/models/rider_orders/rider_orders.dart';
 
 class OrdersController extends GetxController {
@@ -20,6 +20,7 @@ class OrdersController extends GetxController {
   // ListRiderOrders riderOrders = ListRiderOrders(riderOrders: []);
   RiderOrders riderOrders = RiderOrders();
   AuthController auth = AuthController();
+  OrdersLists orderList = OrdersLists();
   List<Placemark> placemarks = [];
   String fullAddress = 'no address';
   List<String>? Addresses = [];
@@ -29,7 +30,7 @@ class OrdersController extends GetxController {
 
     log('$placemarks');
 
-    fullAddress = '${placemarks[1].street!}${placemarks[0].thoroughfare!}${placemarks[0].subLocality!}${placemarks[0].postalCode!}${placemarks[0].locality!}${placemarks[0].administrativeArea!}';
+    fullAddress = '${placemarks[1].street!} ${placemarks[0].thoroughfare!} ${placemarks[0].subLocality!} ${placemarks[0].postalCode!} ${placemarks[0].locality!} ${placemarks[0].administrativeArea!}';
     log(fullAddress);
     update();
     return fullAddress;
@@ -59,4 +60,6 @@ class OrdersController extends GetxController {
 
     update();
   }
+
+ 
 }

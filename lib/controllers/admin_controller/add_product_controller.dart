@@ -54,17 +54,16 @@ class AddProductController extends GetxController {
       }
 
       Product product = Product(
-          name: name,
-          description: description,
-          price: price,
-          images: imageUrls);
+        name: name,
+        description: description,
+        price: price,
+        images: imageUrls,
+        id: '',
+      );
 
       http.Response res = await http.post(
         Uri.parse('$uri/admin/add-product'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': authUser.user.token
-        },
+        headers: {'Content-Type': 'application/json; charset=UTF-8', 'x-auth-token': authUser.user.token},
         body: product.toJson(),
       );
 
@@ -74,8 +73,7 @@ class AddProductController extends GetxController {
         onSuccess: () {
           // Navigator.pop(context);
           Navigator.popAndPushNamed(context, RouteName.adminServiceListPage);
-          ElegantNotification.success(
-              description: Text('Product added successfully'));
+          ElegantNotification.success(description: Text('Product added successfully'));
         },
       );
     } catch (e) {

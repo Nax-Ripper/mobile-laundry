@@ -83,10 +83,13 @@ class HomeController extends GetxController {
       },
     );
 
-    log('Orders: ${res.body}');
+    // log('Orders: ${res.body}');
 
     orderList = OrdersLists.fromJson(res.body);
+
+    log('first delivary ${orderList.orders?.first.deliveryLat}');
     update();
+    // log('orders are:${orderList.orders?[0].products}');
 
     // log('total Fee${orderList.orders?[0].totalFee}');
   }

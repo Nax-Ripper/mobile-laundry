@@ -45,7 +45,7 @@ class OrdersPage extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (_) => SelectedOrderDetailsPage(
-                                        Address: ctrl.Addresses?[i],
+                                        address: ctrl.Addresses?[i],
                                         order: ctrl.riderOrders.riderOrders?[i],
                                       ),
                                     ));

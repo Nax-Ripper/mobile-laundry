@@ -12,8 +12,7 @@ import 'package:mobile_laundry/widgets/bottom_bar_rider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Stripe.publishableKey =
-      'pk_test_51MyH5pAjrQIbGFrMLIS4WYyUDtJ3qKxwLWIHlfhRvmUleTSQ8cgyqWHSTOZp0xIgSlloHMmzUrKv25mqbYeAq7I600QWkMiNaJ';
+  Stripe.publishableKey = 'pk_test_51MyH5pAjrQIbGFrMLIS4WYyUDtJ3qKxwLWIHlfhRvmUleTSQ8cgyqWHSTOZp0xIgSlloHMmzUrKv25mqbYeAq7I600QWkMiNaJ';
   Stripe.merchantIdentifier = 'any string works';
   await Stripe.instance.applySettings();
   runApp(const MyApp());
@@ -34,14 +33,12 @@ class _MyAppState extends State<MyApp> {
     @override
     void initState() {
       super.initState();
-      getX = Get.find<AuthController>().initialized
-          ? Get.find<AuthController>()
-          : Get.put(AuthController());
+      getX = Get.find<AuthController>().initialized ? Get.find<AuthController>() : Get.put(AuthController());
     }
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Flutter Demo',   
       // theme: theme(),
 
       onGenerateRoute: (settings) => generateRoute(settings),
@@ -50,12 +47,12 @@ class _MyAppState extends State<MyApp> {
       // initialRoute: RouteName.homePage,
       // home: OrderDetailsPage(),
       // home:Get.find<AuthController>().initialized!= true Get.put(AuthController()).getUser.isEmpty? AuthPage():Get.find<AuthController>().getUser.type=='user'?BottomBar():AdminHomePage() ,
-      // home: getX.user.token.isEmpty
-      //     ? const AuthPage()
-      //     : getX.user.type == 'user'
-      //         ? BottomBarCustomer()
-      //         : const AdminHomePage(),
-      home: BottomBarRider(),
+      home: getX.user.token.isEmpty
+          ? const AuthPage()
+          : getX.user.type == 'user'
+              ? BottomBarCustomer()
+              : const AdminHomePage(),
+      // home: BottomBarRider(),
     );
   }
 }

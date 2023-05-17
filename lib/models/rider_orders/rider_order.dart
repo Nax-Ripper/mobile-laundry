@@ -29,6 +29,7 @@ class RiderOrder {
   DateTime? updatedAt;
   int? v;
   User? user;
+  String? serviceName;
   String? FullAddress;
 
   RiderOrder({
@@ -54,6 +55,7 @@ class RiderOrder {
     this.updatedAt,
     this.v,
     this.user,
+    this.serviceName,
     this.FullAddress,
   });
 
@@ -61,6 +63,7 @@ class RiderOrder {
         id: data['_id'] as String?,
         serviceId: data['serviceId'] as String?,
         products: data['products'] != null ? List<Product>.from(data['products']?.map((x) => Product.fromMap(x))) : null,
+        // products: List<Product>.from(data['products'].forEach((x) => Product.fromMap(x))),
         subTotal: data['subTotal']?.toDouble(),
         riderFee: data['riderFee'] as int?,
         serviceFee: data['serviceFee'] as int?,
@@ -78,6 +81,7 @@ class RiderOrder {
         dobiLong: (data['dobiLong'] as num?)?.toDouble(),
         createdAt: data['createdAt'] == null ? null : DateTime.parse(data['createdAt'] as String),
         updatedAt: data['updatedAt'] == null ? null : DateTime.parse(data['updatedAt'] as String),
+        serviceName: data['serviceName'] as String?,
         v: data['__v'] as int?,
         user: data['user'] == null ? null : User.fromMap(data['user'] as Map<String, dynamic>),
       );

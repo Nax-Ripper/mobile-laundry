@@ -25,7 +25,7 @@ class Product {
       'description': description,
       'price': price,
       'images': images,
-      'id': id,
+      '_id': id,
       'userId': userId,
       'quantity': quantity,
     };
@@ -45,6 +45,5 @@ class Product {
 
   String toJson() => json.encode(toMap());
 
-  factory Product.fromJson(String source) =>
-      Product.fromMap(json.decode(source));
+  factory Product.fromJson(String source) => Product.fromMap(json.decode(source));
 }
