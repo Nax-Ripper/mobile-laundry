@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // emulator
 String uri = 'http://10.0.2.2:3000';
 // real device
-// String uri = 'http://192.168.137.35:3000';
+// String uri = 'http://192.168.0.11:3000';
 
 // hosted Url
 // String uri = 'https://blushing-pig-mittens.cyclic.app';

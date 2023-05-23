@@ -5,13 +5,13 @@ import 'dart:io';
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/models/rider_model.dart';
 import 'package:mobile_laundry/utils/file_picker.dart';
-import 'package:http/http.dart' as http;
+import 'package:mobile_laundry/widgets/bottom_bar_rider.dart';
 
 class RiderSignupPageController extends GetxController {
   List<File> icImage = [];
@@ -96,7 +96,8 @@ class RiderSignupPageController extends GetxController {
       body: rider.toJson(),
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
     );
-    if (jsonDecode(res.body)['msg'] != null && jsonDecode(res.body)['error'] != null) {
+    if (jsonDecode(res.body)['msg'] != null &&
+        jsonDecode(res.body)['error'] != null) {
       // ignore: use_build_context_synchronously
       CherryToast.error(
         animationDuration: Duration(milliseconds: 1000),
@@ -110,18 +111,48 @@ class RiderSignupPageController extends GetxController {
       Navigator.pop(context);
       // ignore: use_build_context_synchronously
       CherryToast.success(
-        title: Text(''),
-        action: Text('OK'),
-        actionHandler: (){
+        title: Text('Your signup was successful!. Wait for the approval'),
+        actionHandler: () {
           log('clicked OK');
         },
-        description: Text('Your signup was successful!. Wait for the approval'),
+        // description:
         autoDismiss: false,
-        
       ).show(context);
     }
 
     log(res.body);
+    update();
+  }
+
+  Future<void> signInRider({
+    required String email,
+    required String password,
+    required BuildContext context,
+  }) async {
+    var body = {"email": email, "password": password};
+    try {
+      var res = await http.post(
+        Uri.parse('$uri/api/signin?riderQuery=rider'),
+        body: jsonEncode(body),
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      );
+
+      log(res.body);
+
+      if (jsonDecode(res.body)['token'] != null) {
+        rider = Riders.fromJson(res.body);
+
+        log(rider.email!);
+        // Navigator.popAndPushNamed(context, RouteName.riderOrdersPage);
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => BottomBarRider(page: 0)),
+          (Route<dynamic> route) => false,
+        );
+      }
+    } catch (e) {
+      log(e.toString());
+    }
     update();
   }
 }

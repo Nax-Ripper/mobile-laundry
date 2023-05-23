@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:mobile_laundry/controllers/admin_controller/admin_services_controller.dart';
 import 'package:mobile_laundry/routes/route_name.dart';
+import 'package:mobile_laundry/views/admin/rider_approval/rider_approval_page.dart';
 
 class AdminHomePage extends StatelessWidget {
   const AdminHomePage({super.key});
@@ -37,6 +38,25 @@ class AdminHomePage extends StatelessWidget {
                   ),
                 ),
               ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, RouteName.riderApprovalPage);
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  //   return RiderApprovalPage();
+                  // },));
+                },
+                child: Card(
+                  child: Container(
+                    height: 30,
+                    decoration: BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: Text('Rider Application'),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         );

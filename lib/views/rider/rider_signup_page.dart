@@ -379,7 +379,9 @@ class _RiderSignupPageState extends State<RiderSignupPage> {
                                 ),
                                 const SizedBox(height: 16.0),
                                 TextFormField(
+                                  obscureText: true,
                                   decoration: const InputDecoration(
+                                    
                                     labelText: 'Password',
                                     border: OutlineInputBorder(),
                                   ),
@@ -387,11 +389,7 @@ class _RiderSignupPageState extends State<RiderSignupPage> {
                                     if (value == '') {
                                       return 'Please enter passwword';
                                     }
-                                    // if (!RegExp(
-                                    //         r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                    //     .hasMatch(value!)) {
-                                    //   return 'Please enter a valid email address';
-                                    // }
+                                   
                                     return null;
                                   },
                                   onChanged: (value) {
@@ -403,8 +401,9 @@ class _RiderSignupPageState extends State<RiderSignupPage> {
                                   onPressed: () {
                                     if (_signInFromKey.currentState!
                                         .validate()) {
-                                      _formKey.currentState!.save();
+                                      _signInFromKey.currentState!.save();
                                       // call api
+                                      ctrl.signInRider(email: ctrl.email,password: ctrl.password,context: context);
                                       // route to new page
                                       log('hello');
                                     }

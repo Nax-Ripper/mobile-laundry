@@ -10,4 +10,6 @@ class RouteName extends Route {
   static const String orderListPage = '/orderListPage';
   static const String orderDetailsPage = '/orderDetailsPage';
   static const String selectedOrderDetailsPage = '/selectedOrderDetailsPage';
+  static const String riderApprovalPage = '/riderApprovalPage';
+  static const String riderOrdersPage = '/riderOrdersPage';
 }

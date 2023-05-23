@@ -7,11 +7,13 @@ import 'package:mobile_laundry/models/arguments_model.dart';
 import 'package:mobile_laundry/routes/route_name.dart';
 import 'package:mobile_laundry/views/admin/product_services/add_product_page.dart';
 import 'package:mobile_laundry/views/admin/product_services/product_page.dart';
+import 'package:mobile_laundry/views/admin/rider_approval/rider_approval_page.dart';
 import 'package:mobile_laundry/views/auth/auth_page.dart';
 import 'package:mobile_laundry/views/checkout/order_details_page.dart';
 import 'package:mobile_laundry/views/location/location_page.dart';
 import 'package:mobile_laundry/views/order/order_list_page.dart';
 import 'package:mobile_laundry/views/order/pickup_shedule_page.dart';
+import 'package:mobile_laundry/views/rider/orders_page.dart';
 import 'package:mobile_laundry/views/rider/selected_order_details_page.dart';
 
 import '../views/home/home_page.dart';
@@ -58,11 +60,19 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => OrderDetailsPage(),
       );
 
+      case RouteName.riderOrdersPage:
+      return MaterialPageRoute(
+        builder: (_) => OrdersPage(),
+      );
+
     case RouteName.adminServiceListPage:
       return MaterialPageRoute(builder: (_) => ProductListPage());
 
     case RouteName.addProuctPage:
       return MaterialPageRoute(builder: (_) => AddProductPage());
+      
+    case RouteName.riderApprovalPage:
+      return MaterialPageRoute(builder: (_) => RiderApprovalPage());
 
     default:
       return MaterialPageRoute(
