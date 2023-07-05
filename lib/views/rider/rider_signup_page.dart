@@ -21,10 +21,13 @@ class _RiderSignupPageState extends State<RiderSignupPage> {
   final _formKey = GlobalKey<FormState>();
   final _signInFromKey = GlobalKey<FormState>();
 
+  RiderSignupPageController riderSignupPageController =
+      Get.put(RiderSignupPageController(), permanent: true);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<RiderSignupPageController>(
-      init: RiderSignupPageController(),
+      init: riderSignupPageController,
       builder: (ctrl) {
         return SafeArea(
           child: Scaffold(
@@ -381,7 +384,6 @@ class _RiderSignupPageState extends State<RiderSignupPage> {
                                 TextFormField(
                                   obscureText: true,
                                   decoration: const InputDecoration(
-                                    
                                     labelText: 'Password',
                                     border: OutlineInputBorder(),
                                   ),
@@ -389,7 +391,7 @@ class _RiderSignupPageState extends State<RiderSignupPage> {
                                     if (value == '') {
                                       return 'Please enter passwword';
                                     }
-                                   
+
                                     return null;
                                   },
                                   onChanged: (value) {
@@ -403,7 +405,10 @@ class _RiderSignupPageState extends State<RiderSignupPage> {
                                         .validate()) {
                                       _signInFromKey.currentState!.save();
                                       // call api
-                                      ctrl.signInRider(email: ctrl.email,password: ctrl.password,context: context);
+                                      ctrl.signInRider(
+                                          email: ctrl.email,
+                                          password: ctrl.password,
+                                          context: context);
                                       // route to new page
                                       log('hello');
                                     }

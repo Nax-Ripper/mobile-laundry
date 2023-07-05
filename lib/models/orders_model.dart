@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:mobile_laundry/models/product_model.dart';
 
 class Orders {
+  String? id;
+  String? riderId;
   String? serviceId;
   List<Product>? products;
   double? subTotal;
@@ -22,7 +24,11 @@ class Orders {
   double? deliveryLong;
   double? dobiLat;
   double? dobiLong;
+  bool? accepted;
+  
   Orders({
+    this.id,
+    this.riderId,
     this.serviceId,
     this.products,
     this.subTotal,
@@ -40,10 +46,13 @@ class Orders {
     this.deliveryLong,
     this.dobiLat,
     this.dobiLong,
+    this.accepted,
   });
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
+      'riderId': riderId,
       'serviceId': serviceId,
       'products': products?.map((x) => x?.toMap())?.toList(),
       'subTotal': subTotal,
@@ -61,15 +70,16 @@ class Orders {
       'deliveryLong': deliveryLong,
       'dobiLat': dobiLat,
       'dobiLong': dobiLong,
+      'accepted': accepted,
     };
   }
 
   factory Orders.fromMap(Map<String, dynamic> map) {
     return Orders(
+      id: map['_id'],
+      riderId: map['riderId'],
       serviceId: map['serviceId'],
-      products: map['products'] != null
-          ? List<Product>.from(map['products']?.map((x) => Product.fromMap(x)))
-          : null,
+      products: map['products'] != null ? List<Product>.from(map['products']?.map((x) => Product.fromMap(x))) : null,
       subTotal: map['subTotal']?.toDouble(),
       serviceFee: map['serviceFee']?.toInt(),
       totalFee: map['totalFee']?.toDouble(),
@@ -88,6 +98,7 @@ class Orders {
       deliveryLong: map['deliveryLong']?.toDouble(),
       dobiLat: map['dobiLat']?.toDouble(),
       dobiLong: map['dobiLong']?.toDouble(),
+      accepted: map['accepted'],
     );
   }
 

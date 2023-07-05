@@ -47,7 +47,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     ),
                   ),
                 ),
-                Text('Thanks for choosing Us!'),
+                Text('Thanks for choosing Us!',style: TextStyle(fontSize: 19)),
                 // Text('Your pickup has been confirmed'),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -55,7 +55,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     height: 500,
                     // constraints: BoxConstraints(maxHeight: 1500, minHeight: 400),
                     decoration: BoxDecoration(
-                      color: Colors.amber,
+                      // color: Colors.amber,
+                      color: GlobalVariables.greyColor,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: GlobalVariables.greyColor),
                     ),
@@ -189,7 +190,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                       //   },
                       // );
                     },
-                    child: Text('Place Order!'),
+                    child: Text('Confirm Order'),
                   ),
                 )
               ],

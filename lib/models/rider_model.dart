@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Riders {
+  
   String? name;
   String? email;
   // String? passowrd;

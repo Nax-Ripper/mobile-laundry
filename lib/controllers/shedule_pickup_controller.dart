@@ -69,14 +69,14 @@ class SheduleController extends GetxController {
       id: 1,
       name: 'Online',
       image: 'lib/assets/globe_solid.svg',
-      isSelected: false,
-    ),
-    PaymentMethods(
-      id: 2,
-      name: 'Cash On Delivery',
-      image: 'lib/assets/cod_2.svg',
       isSelected: true,
     ),
+    // PaymentMethods(
+    //   id: 2,
+    //   name: 'Cash On Delivery',
+    //   image: 'lib/assets/cod_2.svg',
+    //   isSelected: true,
+    // ),
   ];
 
   // PickupDelivery address = PickupDelivery(

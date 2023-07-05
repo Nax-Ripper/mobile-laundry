@@ -140,7 +140,7 @@ class OrderDetailsController extends GetxController {
     }
   }
 
-  createPaymentIntent({required String amount, String currency = 'usd'}) async {
+  createPaymentIntent({required String amount, String currency = 'myr'}) async {
     try {
       var body = {
         'amount': calculateAmount(amount),
@@ -189,10 +189,14 @@ class OrderDetailsController extends GetxController {
           .initPaymentSheet(
             paymentSheetParameters: SetupPaymentSheetParameters(
               customFlow: true,
+             
               merchantDisplayName: 'Flutter Stripe Store Demo',
               paymentIntentClientSecret:
                   jsonDecode(jsonEncode(paymentIntent))['client_secret'],
               style: ThemeMode.system,
+            
+              
+
             ),
           )
           .onError((error, stackTrace) =>

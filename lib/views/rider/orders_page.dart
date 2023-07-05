@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heroicons/heroicons.dart';
@@ -6,11 +8,16 @@ import 'package:mobile_laundry/views/rider/selected_order_details_page.dart';
 import 'package:mobile_laundry/widgets/bottom_bar_rider.dart';
 import 'package:mobile_laundry/widgets/normal_appbar.dart';
 
+import '../../controllers/rider_controller/rider_signup_controller.dart';
+
 class OrdersPage extends StatelessWidget {
-  const OrdersPage({super.key});
+   OrdersPage({super.key});
+  RiderSignupPageController signInedRider =
+      Get.find<RiderSignupPageController>();
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         appBar: NormalAppBar(title: 'Orders', isCenter: false),
         body: GetBuilder<OrdersController>(
@@ -39,8 +46,12 @@ class OrdersPage extends StatelessWidget {
                           height: 100,
                           child: Card(
                             child: ListTile(
+                              tileColor:signInedRider.rider.id==ctrl.riderOrders.riderOrders![i].riderId? Colors.greenAccent:Colors.transparent,
                               onTap: () {
-                                // to Details Page
+                                
+                                log(i.toString());
+                                
+                               // to Details Page
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -71,17 +82,17 @@ class OrdersPage extends StatelessWidget {
                                   // Text('Deliver at :'),
                                 ],
                               ),
-                              trailing: ElevatedButton.icon(
-                                onPressed: () {
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => BottomBarRider(page: 1)),
-                                    (Route<dynamic> route) => false,
-                                  );
-                                },
-                                icon: const HeroIcon(HeroIcons.check),
-                                label: const Text('Accept'),
-                              ),
+                              // trailing: ElevatedButton.icon(
+                              //   onPressed: () {
+                              //     Navigator.pushAndRemoveUntil(
+                              //       context,
+                              //       MaterialPageRoute(builder: (context) => BottomBarRider(page: 1)),
+                              //       (Route<dynamic> route) => false,
+                              //     );
+                              //   },
+                              //   icon: const HeroIcon(HeroIcons.check),
+                              //   label: const Text('Accept'),
+                              // ),
                             ),
                           ),
                         ),
@@ -92,6 +103,6 @@ class OrdersPage extends StatelessWidget {
               );
             }
           },
-        ));
+        ),);
   }
 }

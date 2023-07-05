@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/auth_controller.dart';
 import 'package:mobile_laundry/models/arguments_model.dart';
+import 'package:mobile_laundry/models/invoice_model.dart';
 import 'package:mobile_laundry/models/last_orders.dart';
 import 'package:mobile_laundry/models/orders_model.dart';
 
@@ -94,11 +95,75 @@ class HomeController extends GetxController {
     // log('total Fee${orderList.orders?[0].totalFee}');
   }
 
-  // List<LastOrders> orders = [
-  //   LastOrders(orderId: 1, amount: 10, startTime: '10:00 pm', endTime: '12:00 am', StartDate: '17/02/23', EndDate: '17/02/23'),
-  //   LastOrders(orderId: 2, amount: 15, startTime: '2:30 pm', endTime: '5:00 am', StartDate: '15/02/23', EndDate: '15/02/23'),
-  //   LastOrders(orderId: 3, amount: 7, startTime: '9:25 am', endTime: '12:00 pm', StartDate: '9/02/23', EndDate: '9/02/23'),
-  //   LastOrders(orderId: 4, amount: 7, startTime: '9:25 am', endTime: '12:00 pm', StartDate: '6/02/23', EndDate: '6/02/23'),
-  //   LastOrders(orderId: 5, amount: 7, startTime: '9:25 am', endTime: '12:00 pm', StartDate: '5/02/23', EndDate: '5/02/23'),
-  // ];
+//   List<Invoice> invoice = [];
+
+//   DataTable buildDataTable = DataTable(columns: [
+//     DataColumn(label: Text('hi'))
+//   ], rows: []);
+
+//   getInvoice(Orders order) {
+//     for (var i = 0; i < order.products!.length; i++) {
+//       log("Name==>");
+//       log(order.products![i].name!);
+
+//       log(order.products![i].price!.toString());
+
+//       log('quantitiy');
+//       log(order.products![i].quantity!.toString());
+
+//       invoice.add(Invoice(
+//           name: order.products![i].name!,
+//           rate: order.products![i].price.toString(),
+//           quantity: order.products![i].quantity!,
+//           amount: calculateAmount(
+//               order.products![i].price!, order.products![i].quantity!)));
+//     }
+
+//     invoice.add(Invoice(
+//         name: 'Rider Fee',
+//         rate: order.riderFee.toString(),
+//         quantity: 1,
+//         amount: order.riderFee!.toDouble()));
+//     invoice.add(Invoice(
+//         name: 'Service Fee',
+//         rate: order.serviceFee.toString(),
+//         quantity: 1,
+//         amount: order.serviceFee!.toDouble()));
+
+//     log('Invoice == >${invoice.length.toString()}  ||  ${invoice.first.amount}');
+// final columns = ['Item', 'Rate', 'Quantity', 'Amount'];
+//     buildDataTable = DataTable(columns: getColumn(columns), rows: getRows(invoice));
+//     update();
+//   }
+
+//   double calculateAmount(double price, int quantity) {
+//     return price * quantity;
+//   }
+
+  
+//   List<DataColumn> getColumn(List<String> columns) =>
+//       columns.map((String column) => DataColumn(label: Text(column))).toList();
+
+//   // List<DataRow> getRows(List<Invoice> invoices){
+//   //    invoices.map((Invoice invoice) {
+//   //     final cells = [invoice.name, invoice.rate,invoice.quantity, invoice.amount];
+//   //     return DataRow(cells: getCells(cells));
+//   //   }).toList();
+//   // }
+
+//   List<DataRow> getRows(List<Invoice> invoices) {
+//     return invoices.map((Invoice invoice) {
+//       final cells = [
+//         invoice.name,
+//         invoice.rate,
+//         invoice.quantity,
+//         invoice.amount
+//       ];
+//       return DataRow(cells: getCells(cells));
+//     }).toList();
+//   }
+
+//   List<DataCell> getCells(List<dynamic> cells){
+//     return cells.map((data) => DataCell(Text('$data'))).toList();
+//   }
 }

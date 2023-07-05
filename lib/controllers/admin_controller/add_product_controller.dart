@@ -47,7 +47,7 @@ class AddProductController extends GetxController {
           CloudinaryFile.fromFile(
             images[i].path,
             resourceType: CloudinaryResourceType.Image,
-            folder: name,
+            folder: 'Products',
           ),
         );
         imageUrls.add(res.secureUrl);
@@ -71,6 +71,7 @@ class AddProductController extends GetxController {
         res: res,
         context: context,
         onSuccess: () {
+          // Navigator.pop(context);
           // Navigator.pop(context);
           Navigator.popAndPushNamed(context, RouteName.adminServiceListPage);
           ElegantNotification.success(description: Text('Product added successfully'));

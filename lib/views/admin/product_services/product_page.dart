@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -50,14 +52,36 @@ class _ProductListPageState extends State<ProductListPage> {
                         child: ListView.builder(
                           itemCount: ctrl.products.length,
                           itemBuilder: (context, i) {
-                            return Card(
-                              child: ListTile(
-                                // leading: ctrl.orderListCtrl.items[i].image,
-                                leading:
-                                    Image.network(ctrl.products[i].images![0]),
-                                title: Text(ctrl.products[i].name!),
-                                subtitle: Text('RM ${ctrl.products[i].price}'),
-                                // trailing: Icon(Icons.arrow_forward_ios_sharp),
+                            return Dismissible(
+                              direction: DismissDirection.endToStart,
+                              background: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                
+                                alignment: AlignmentDirectional.centerEnd,
+                                color: Colors.red,
+                                child: Icon(Icons.delete,color: Colors.white,)
+                              ),
+                              key: Key(i.toString()),
+                              onDismissed: (direction) {
+                                if (direction == DismissDirection.endToStart) {
+                                  log('${ctrl.products[i].id}');
+
+
+                                  ctrl.deleteProduct('${ctrl.products[i].id}',context);
+                                  ctrl.update();
+                                }
+                              },
+                              
+                              child: Card(
+                                child: ListTile(
+                                  // leading: ctrl.orderListCtrl.items[i].image,
+                                  leading: Image.network(
+                                      ctrl.products[i].images![0]),
+                                  title: Text(ctrl.products[i].name!),
+                                  subtitle:
+                                      Text('RM ${ctrl.products[i].price}'),
+                                  // trailing: Icon(Icons.arrow_forward_ios_sharp),
+                                ),
                               ),
                             );
                           },

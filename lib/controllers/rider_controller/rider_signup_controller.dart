@@ -139,6 +139,10 @@ class RiderSignupPageController extends GetxController {
 
       log(res.body);
 
+      if(jsonDecode(res.body)['msg']!=null){
+        CherryToast.error(title: Text(jsonDecode(res.body)['msg'])).show(context);
+      }
+
       if (jsonDecode(res.body)['token'] != null) {
         rider = Riders.fromJson(res.body);
 

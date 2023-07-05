@@ -31,6 +31,8 @@ class RiderOrder {
   User? user;
   String? serviceName;
   String? FullAddress;
+  bool? verified;
+  String? riderId;
 
   RiderOrder({
     this.id,
@@ -57,6 +59,8 @@ class RiderOrder {
     this.user,
     this.serviceName,
     this.FullAddress,
+    this.verified,
+    this.riderId,
   });
 
   factory RiderOrder.fromMap(Map<String, dynamic> data) => RiderOrder(
@@ -84,6 +88,8 @@ class RiderOrder {
         serviceName: data['serviceName'] as String?,
         v: data['__v'] as int?,
         user: data['user'] == null ? null : User.fromMap(data['user'] as Map<String, dynamic>),
+      verified: data['verified'] as bool,
+      riderId: data['riderId']as String?
       );
 
   Map<String, dynamic> toMap() => {

@@ -346,6 +346,7 @@ class _OrderListPageState extends State<OrderListPage> {
                           child: Text(
                             'Confirm',
                             // style: Theme.of(context).textTheme.displaySmall!,
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       )

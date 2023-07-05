@@ -9,6 +9,8 @@ import 'package:mobile_laundry/views/account/account_page.dart';
 import 'package:mobile_laundry/views/rider/delivery_page.dart';
 import 'package:mobile_laundry/views/rider/orders_page.dart';
 import 'package:mobile_laundry/views/rider/past_orders_page.dart';
+import 'package:mobile_laundry/widgets/profile_page.dart';
+import 'package:mobile_laundry/widgets/rider_profie_page.dart';
 
 class BottomBarRider extends StatefulWidget {
   int? page;
@@ -47,8 +49,9 @@ class _BottomBarRiderState extends State<BottomBarRider> {
     List<Widget> pages = [
       OrdersPage(),
       DeliveryPage(id: customerId),
-      PastOrderPage(),
-      AccountPage(),
+      // PastOrderPage(),
+      // AccountPage(),
+      RiderProfilePage()
     ];
     return Scaffold(
       body: pages[page],
@@ -103,25 +106,25 @@ class _BottomBarRiderState extends State<BottomBarRider> {
               // ),
             ),
           ),
-          BottomNavigationBarItem(
-            label: '',
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: page == 2 ? GlobalVariables.primaryColor : GlobalVariables.backgroundColor,
-                    width: 5,
-                  ),
-                ),
-              ),
-              child: const Icon(
-                Icons.notes_outlined,
-                color: GlobalVariables.primaryColor,
-              ),
-              // child: HeroIcon(HeroIcons.),
-            ),
-          ),
+          // BottomNavigationBarItem(
+          //   label: '',
+          //   icon: Container(
+          //     width: bottomBarWidth,
+          //     decoration: BoxDecoration(
+          //       border: Border(
+          //         top: BorderSide(
+          //           color: page == 2 ? GlobalVariables.primaryColor : GlobalVariables.backgroundColor,
+          //           width: 5,
+          //         ),
+          //       ),
+          //     ),
+          //     child: const Icon(
+          //       Icons.notes_outlined,
+          //       color: GlobalVariables.primaryColor,
+          //     ),
+          //     // child: HeroIcon(HeroIcons.),
+          //   ),
+          // ),
           BottomNavigationBarItem(
             label: '',
             icon: Container(

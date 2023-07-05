@@ -9,6 +9,7 @@ import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/auth_controller.dart';
 import 'package:mobile_laundry/models/users_model.dart';
 import 'package:mobile_laundry/views/admin/admin_home_page.dart';
+import 'package:mobile_laundry/views/admin/admin_home_page2.dart';
 import 'package:mobile_laundry/views/rider/rider_signup_page.dart';
 import 'package:mobile_laundry/widgets/bottom_bar_customer.dart';
 import 'package:mobile_laundry/widgets/screen_peeling.dart';
@@ -68,7 +69,9 @@ class AuthPage extends StatelessWidget {
               ctrl.user.email = data.name!;
               ctrl.user.password = data.password!;
               ctrl.user.name = data.additionalSignupData!['Username']!;
-
+              ctrl.user.phoneNumber = data.additionalSignupData!['phone_number']!;
+              ctrl.update();
+              log('${ctrl.user.toMap()}');
               http.Response res = await http.post(
                 Uri.parse('$uri/api/signup'),
                 body: ctrl.user.toJson(),
@@ -88,9 +91,11 @@ class AuthPage extends StatelessWidget {
               return null;
             },
             messages: LoginMessages(
-              signUpSuccess: 'Welcome user}',
+              
+              signUpSuccess: 'Please SignIn to Continue',
               confirmSignupIntro: 'Welcome${ctrl.user.name}.',
             ),
+        
             additionalSignupFields: [
               const UserFormField(
                 keyName: 'Username',
@@ -119,7 +124,8 @@ class AuthPage extends StatelessWidget {
             onSubmitAnimationCompleted: () {
               if (ctrl.user.type == 'admin') {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const AdminHomePage(),
+                  // builder: (context) => const AdminHomePage(),
+                  builder: (context) =>  AdminHome2(),
                 ));
               } else {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -127,6 +133,7 @@ class AuthPage extends StatelessWidget {
                 ));
               }
             },
+            loginAfterSignUp: false,
           ),
         );
       },

@@ -5,16 +5,20 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:mobile_laundry/models/arguments_model.dart';
 import 'package:mobile_laundry/routes/route_name.dart';
+import 'package:mobile_laundry/views/admin/admin_asset_page/admin_asset_page.dart';
 import 'package:mobile_laundry/views/admin/product_services/add_product_page.dart';
 import 'package:mobile_laundry/views/admin/product_services/product_page.dart';
 import 'package:mobile_laundry/views/admin/rider_approval/rider_approval_page.dart';
 import 'package:mobile_laundry/views/auth/auth_page.dart';
 import 'package:mobile_laundry/views/checkout/order_details_page.dart';
+import 'package:mobile_laundry/views/invoice/customer_invoice.dart';
 import 'package:mobile_laundry/views/location/location_page.dart';
 import 'package:mobile_laundry/views/order/order_list_page.dart';
 import 'package:mobile_laundry/views/order/pickup_shedule_page.dart';
+import 'package:mobile_laundry/views/rider/approved_rider_page.dart';
 import 'package:mobile_laundry/views/rider/orders_page.dart';
 import 'package:mobile_laundry/views/rider/selected_order_details_page.dart';
+import 'package:mobile_laundry/widgets/profile_page.dart';
 
 import '../views/home/home_page.dart';
 
@@ -37,6 +41,16 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         builder: (_) => PickUpShedulePage(),
       );
+      case RouteName.profilePage:
+      return MaterialPageRoute(
+        builder: (_) => ProfilePage(),
+      );
+
+      //  case RouteName.customerInvoice:
+      // return MaterialPageRoute(
+      //   builder: (_) => CustomerInvoice(),
+      // );
+
 
        case RouteName.selectedOrderDetailsPage:
       return MaterialPageRoute(
@@ -60,6 +74,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => OrderDetailsPage(),
       );
 
+      case RouteName.adminAssetsPage:
+      return MaterialPageRoute(
+        builder: (_) => AdminAssetPage(),
+      );
+
       case RouteName.riderOrdersPage:
       return MaterialPageRoute(
         builder: (_) => OrdersPage(),
@@ -70,6 +89,8 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
 
     case RouteName.addProuctPage:
       return MaterialPageRoute(builder: (_) => AddProductPage());
+         case RouteName.approvedRiderPage:
+      return MaterialPageRoute(builder: (_) => ApprovedRiderPage());
       
     case RouteName.riderApprovalPage:
       return MaterialPageRoute(builder: (_) => RiderApprovalPage());

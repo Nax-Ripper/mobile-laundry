@@ -10,6 +10,7 @@ import 'package:mobile_laundry/controllers/geo_location_controller.dart';
 import 'package:mobile_laundry/controllers/order_list_controller.dart';
 import 'package:mobile_laundry/views/home/home_page.dart';
 import 'package:mobile_laundry/views/order/order_list_page.dart';
+import 'package:mobile_laundry/widgets/profile_page.dart';
 
 class BottomBarCustomer extends StatefulWidget {
   int? page;
@@ -51,9 +52,10 @@ class _BottomBarCustomerState extends State<BottomBarCustomer> {
   List<Widget> pages = [
     HomePage(),
     OrderListPage(),
-    Center(
-      child: Text('Account Page'),
-    ),
+    // Center(
+    //   child: Text('Account Page'),
+    // ),
+    ProfilePage()
   ];
 
   @override

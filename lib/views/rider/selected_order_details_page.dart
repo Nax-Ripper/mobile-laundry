@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:mobile_laundry/controllers/rider_controller/orders_controller.dart';
+import 'package:mobile_laundry/controllers/rider_controller/rider_signup_controller.dart';
 
 import 'package:mobile_laundry/models/rider_orders/rider_order.dart';
 import 'package:mobile_laundry/widgets/bottom_bar_rider.dart';
@@ -26,6 +27,7 @@ class SelectedOrderDetailsPage extends StatefulWidget {
 
 class _SelectedOrderDetailsPageState extends State<SelectedOrderDetailsPage> {
   OrdersController ordersController = Get.find<OrdersController>();
+  RiderSignupPageController signInedRider = Get.find<RiderSignupPageController>();
   String dobiAddress = "";
   @override
   void initState() {
@@ -160,6 +162,8 @@ class _SelectedOrderDetailsPageState extends State<SelectedOrderDetailsPage> {
             height: 60,
             child: ElevatedButton(
               onPressed: () {
+                log('Orderid: ${widget.order?.id}');
+                log('Riderid: ${signInedRider.rider.id}');
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
