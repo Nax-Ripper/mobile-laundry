@@ -5,10 +5,12 @@ import 'dart:developer';
 
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/auth_controller.dart';
 import 'package:mobile_laundry/controllers/geo_location_controller.dart';
@@ -46,11 +48,39 @@ class OrderDetailsController extends GetxController {
   double Total = 0.0;
   String? intendId;
   String SelectedServiceId = "";
-
+  bool isLoading = false;
   double lat = 0.0;
   double long = 0.0;
 
   Orders order = Orders();
+
+  static final _auth = LocalAuthentication();
+
+  Future<bool> authenticate() async {
+    final isAvailable = await hasBiometrics();
+    if(!isAvailable) return false;
+   log(await _auth.getAvailableBiometrics().then((value) => value.toString() ));
+   try {
+      return await _auth.authenticate(
+        localizedReason: 'Scan Fingerprint to checkout ',
+        options:const AuthenticationOptions(
+          stickyAuth: true,
+          useErrorDialogs: true,
+        ));
+   } on PlatformException catch (e) {
+     log(e.toString());
+     return false;
+   }
+  }
+
+  Future<bool> hasBiometrics() async{
+    try {
+      return await _auth.canCheckBiometrics;
+    } on PlatformException catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
 
   void getMenuList() {
     log('${orderListCtrl.products[0].name}');
@@ -176,7 +206,8 @@ class OrderDetailsController extends GetxController {
   }
 
   makePayment(BuildContext context) async {
-    try {
+    if(await authenticate()){
+      try {
       var paymentIntent =
           await createPaymentIntent(amount: Total.toString(), currency: 'myr');
 
@@ -189,14 +220,10 @@ class OrderDetailsController extends GetxController {
           .initPaymentSheet(
             paymentSheetParameters: SetupPaymentSheetParameters(
               customFlow: true,
-             
               merchantDisplayName: 'Flutter Stripe Store Demo',
               paymentIntentClientSecret:
                   jsonDecode(jsonEncode(paymentIntent))['client_secret'],
               style: ThemeMode.system,
-            
-              
-
             ),
           )
           .onError((error, stackTrace) =>
@@ -256,6 +283,10 @@ class OrderDetailsController extends GetxController {
     } catch (e) {
       log(e.toString());
     }
+    }else{
+      CherryToast.error(title: Text('Authentication Failed')).show(context);
+    }
+    
   }
 
   addOrder() async {

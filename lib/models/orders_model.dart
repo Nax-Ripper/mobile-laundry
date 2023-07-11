@@ -25,7 +25,7 @@ class Orders {
   double? dobiLat;
   double? dobiLong;
   bool? accepted;
-  
+
   Orders({
     this.id,
     this.riderId,
@@ -60,8 +60,13 @@ class Orders {
       'totalFee': totalFee,
       'userId': userId,
       'intendId': intendId,
-      'pickUpTime': pickUpTime?.millisecondsSinceEpoch,
-      'deliveryTime': deliveryTime?.millisecondsSinceEpoch,
+      // 'pickUpTime': pickUpTime?.millisecondsSinceEpoch,
+      // 'deliveryTime': deliveryTime?.millisecondsSinceEpoch,
+      // 'pickUpTime': pickUpTime?.toIso8601String(),
+      // 'deliveryTime': deliveryTime?.toIso8601String(),
+
+        'pickUpTime': pickUpTime?.toString(),
+      'deliveryTime': deliveryTime?.toString(),
       'riderFee': riderFee,
       'status': status,
       'pickupLat': pickupLat,
@@ -79,7 +84,9 @@ class Orders {
       id: map['_id'],
       riderId: map['riderId'],
       serviceId: map['serviceId'],
-      products: map['products'] != null ? List<Product>.from(map['products']?.map((x) => Product.fromMap(x))) : null,
+      products: map['products'] != null
+          ? List<Product>.from(map['products']?.map((x) => Product.fromMap(x)))
+          : null,
       subTotal: map['subTotal']?.toDouble(),
       serviceFee: map['serviceFee']?.toInt(),
       totalFee: map['totalFee']?.toDouble(),

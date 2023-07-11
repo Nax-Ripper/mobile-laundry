@@ -1,11 +1,16 @@
 import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mobile_laundry/controllers/rider_controller/rider_signup_controller.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 
 enum Auth { signIn, signUp }
 
@@ -22,7 +27,7 @@ class _RiderSignupPageState extends State<RiderSignupPage> {
   final _signInFromKey = GlobalKey<FormState>();
 
   RiderSignupPageController riderSignupPageController =
-      Get.put(RiderSignupPageController(), permanent: true);
+      Get.put(RiderSignupPageController(), permanent: false);
 
   @override
   Widget build(BuildContext context) {
@@ -297,38 +302,52 @@ class _RiderSignupPageState extends State<RiderSignupPage> {
                                                   ),
                                           ),
                                         ),
-                                        ElevatedButton(
-                                          onPressed: ctrl.icImage.isEmpty ||
-                                                  ctrl.drivingLisence.isEmpty
-                                              ? null
-                                              : () {
-                                                  if (_formKey.currentState!
-                                                      .validate()) {
-                                                    _formKey.currentState!
-                                                        .save();
-                                                    // call api
-                                                    ctrl.signUpRider(
-                                                        context: context,
-                                                        name: ctrl.name,
-                                                        email: ctrl.email,
-                                                        icURL: ctrl.icUrl,
-                                                        lisenceURL: ctrl
-                                                            .drivingLisenceUrl,
-                                                        phone:
-                                                            ctrl.phoneNumber);
+                                        ctrl.isLoading == true
+                                            ? Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child:
+                                                      LoadingAnimationWidget.staggeredDotsWave(color: Colors.purple, size: 30)
+                                                ),
+                                            )
+                                            : ElevatedButton(
+                                                onPressed: ctrl
+                                                            .icImage.isEmpty ||
+                                                        ctrl.drivingLisence
+                                                            .isEmpty
+                                                    ? null
+                                                    : () async {
+                                                        if (_formKey
+                                                            .currentState!
+                                                            .validate()) {
+                                                          _formKey.currentState!
+                                                              .save();
+                                                          // call api
 
-                                                    ctrl.update();
+                                                          ctrl.signUpRider(
+                                                              context: context,
+                                                              name: ctrl.name,
+                                                              email: ctrl.email,
+                                                              icURL: ctrl.icUrl,
+                                                              lisenceURL: ctrl
+                                                                  .drivingLisenceUrl,
+                                                              phone: ctrl
+                                                                  .phoneNumber);
 
-                                                    // route to new page
-                                                    log('hello');
-                                                  }
-                                                },
-                                          child: const SizedBox(
-                                            width: 300,
-                                            child: Center(
-                                                child: Text('Register!')),
-                                          ),
-                                        )
+                                                          ctrl.update();
+
+                                                          // // route to new page
+                                                          // log('hello');
+                                                        }
+                                                      },
+                                                child: const SizedBox(
+                                                  width: 300,
+                                                  child: Center(
+                                                      child: Text('Register!')),
+                                                ),
+                                              )
                                       ],
                                     ),
                                   ),

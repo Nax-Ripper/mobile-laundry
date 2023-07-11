@@ -17,7 +17,7 @@ class RiderApprovalPage extends StatelessWidget {
       body: GetBuilder<RiderApprovalController>(
         init: RiderApprovalController(),
         builder: (ctrl) {
-          return ctrl.riders.riders?.length == null
+          return ctrl.riders.riders?.length  == null || ctrl.isLoading == true
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -25,11 +25,7 @@ class RiderApprovalPage extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: ctrl.riders.riders?.length,
                   itemBuilder: (context, i) {
-                    return ctrl.isLoading == true
-                        ? Center(
-                            child: SingleChildScrollView(),
-                          )
-                        : Padding(
+                    return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               height: 80,
@@ -67,8 +63,11 @@ class RiderApprovalPage extends StatelessWidget {
                                         ),
                                         IconButton(
                                           tooltip: 'Reject',
-                                          onPressed: () {
+                                          onPressed: () async{
                                             log('Reject');
+                                           await ctrl.rejectRider(ctrl.riders.riders?[i].id,context);
+                                            
+                                            ctrl.update();
                                           },
                                           icon: const Icon(
                                             Icons.cancel,
@@ -77,7 +76,7 @@ class RiderApprovalPage extends StatelessWidget {
                                           ),
                                         ),
                                         IconButton(
-                                          tooltip: 'Dowload',
+                                          tooltip: 'Download',
                                           onPressed: () async {
                                             log('Download');
 

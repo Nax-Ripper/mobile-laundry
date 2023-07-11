@@ -351,17 +351,23 @@ class BookNowBanner extends StatelessWidget {
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(context).primaryColor.withOpacity(1),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        'Book Now',
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.white),
-                      ),
-                    ),
+                    // ElevatedButton(
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor:
+                    //         Theme.of(context).primaryColor.withOpacity(1),
+                    //   ),
+                    //   onPressed: () {
+                    //      Navigator.pushNamed(
+                    //               context,
+                    //               RouteName.orderListPage,
+                    //              arguments: {}
+                    //             );
+                    //   },
+                    //   child: Text(
+                    //     'Book Now',
+                    //     style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.white),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

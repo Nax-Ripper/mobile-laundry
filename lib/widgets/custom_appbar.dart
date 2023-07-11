@@ -5,6 +5,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:mobile_laundry/config/global_variables.dart';
 import 'package:mobile_laundry/controllers/geo_location_controller.dart';
+import 'package:mobile_laundry/widgets/bottom_bar_customer.dart';
 
 class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
   GeoLocationController? locator;
@@ -19,7 +20,9 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
 
     return AppBar(
       leading: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          BottomBarCustomer(page: 2,);
+        },
         icon: Icon(
           Icons.person,
         ),

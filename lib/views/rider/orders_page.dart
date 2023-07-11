@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heroicons/heroicons.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_laundry/controllers/rider_controller/orders_controller.dart';
 import 'package:mobile_laundry/views/rider/selected_order_details_page.dart';
 import 'package:mobile_laundry/widgets/bottom_bar_rider.dart';
@@ -67,7 +68,13 @@ class OrdersPage extends StatelessWidget {
                               visualDensity: VisualDensity.adaptivePlatformDensity,
                               isThreeLine: true,
                               dense: false,
-                              title: Text('${ctrl.riderOrders.riderOrders?[i].user?.name}'),
+                              title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              
+                                children: [
+                                  Text('${ctrl.riderOrders.riderOrders?[i].user?.name}'),
+                                  Text(DateFormat('hh:mm a').format(ctrl.riderOrders.riderOrders?[i].pickUpTime ?? DateTime.now()))
+                                ],
+                              ),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

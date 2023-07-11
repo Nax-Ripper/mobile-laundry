@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maps_launcher/maps_launcher.dart';
@@ -8,6 +9,7 @@ import 'package:mobile_laundry/widgets/bottom_bar_rider.dart';
 
 import 'package:mobile_laundry/widgets/custom_textfields.dart';
 import 'package:mobile_laundry/widgets/normal_appbar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/rider_orders/product.dart';
 
@@ -28,7 +30,27 @@ class DeliveryPage extends StatelessWidget {
       ),
       builder: (takenCtrl) {
         return Scaffold(
-          appBar: NormalAppBar(title: 'Taken Order ', isCenter: false),
+          // appBar: NormalAppBar(title: 'Taken Order ', isCenter: false ),
+          appBar: AppBar(title: Text('Taken Order'), actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: Icon(Icons.phone),
+                onTap: () async {
+                  Uri url =
+                      Uri(scheme: 'tel', path: takenCtrl.order.user?.phoneNumber);
+            
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url);
+                  } else {
+                    CherryToast.error(
+                            title: const Text('Cant call to this number'))
+                        .show(context);
+                  }
+                },
+              ),
+            )
+          ]),
           body: id == ''
               ? const Center(
                   child: Text('No orders '),
@@ -223,32 +245,40 @@ class DeliveryPage extends StatelessWidget {
                                   child: SizedBox(
                                     width: 250,
                                     child: ElevatedButton(
-                                        onPressed: takenCtrl.order.verified == false? null: ()
-                                         {
-                                          log('Hello');
-                                          if (takenCtrl.order.status == 2) {
-                                            takenCtrl.updateStatus(
-                                                1, takenCtrl.order.id!);
-                                            takenCtrl.update();
-                                          }
-                                          if (takenCtrl.order.status == 1) {
-                                            takenCtrl.updateStatus(
-                                                0, takenCtrl.order.id!);
-                                            takenCtrl.getOrders(id: id!);
-                                            takenCtrl.update();
-                                          }
-                                          if (takenCtrl.order.status == 0) {
-                                            // call api to crate past order with {riderId, OrderId}
-                                            Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      BottomBarRider(page: 0)),
-                                              (Route<dynamic> route) => false,
-                                            );
-                                            Get.delete<TakenOrderController>();
-                                          }
-                                        },
+                                        onPressed: takenCtrl.order.verified ==
+                                                false
+                                            ? null
+                                            : () {
+                                                log('Hello');
+                                                if (takenCtrl.order.status ==
+                                                    2) {
+                                                  takenCtrl.updateStatus(
+                                                      1, takenCtrl.order.id!);
+                                                  takenCtrl.update();
+                                                }
+                                                if (takenCtrl.order.status ==
+                                                    1) {
+                                                  takenCtrl.updateStatus(
+                                                      0, takenCtrl.order.id!);
+                                                  takenCtrl.getOrders(id: id!);
+                                                  takenCtrl.update();
+                                                }
+                                                if (takenCtrl.order.status ==
+                                                    0) {
+                                                  // call api to crate past order with {riderId, OrderId}
+                                                  Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            BottomBarRider(
+                                                                page: 0)),
+                                                    (Route<dynamic> route) =>
+                                                        false,
+                                                  );
+                                                  Get.delete<
+                                                      TakenOrderController>();
+                                                }
+                                              },
                                         child: takenCtrl.order.status == 2
                                             ? const Text('Picked Up')
                                             : takenCtrl.order.status == 1
@@ -263,7 +293,8 @@ class DeliveryPage extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: takenCtrl.order.verified==true?false:true,
+                          visible:
+                              takenCtrl.order.verified == true ? false : true,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [

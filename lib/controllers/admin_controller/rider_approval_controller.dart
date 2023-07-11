@@ -16,6 +16,7 @@ class RiderApprovalController extends GetxController {
 
   Future<void> getAppliedRiders() async {
     try {
+      riders.riders?.clear();
       var res = await http.get(
         Uri.parse(
           '$uri/api/get-all-applied-riders',
@@ -52,6 +53,36 @@ class RiderApprovalController extends GetxController {
       log(e.toString());
     }
 
+    isLoading = false;
+
+    update();
+  }
+
+  Future<void> rejectRider(String?id , BuildContext context) async{
+    isLoading = true;
+          riders.riders?.clear();
+
+    try {
+      var res = await http.post(Uri.parse('$uri/api/reject-rider/$id'),
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+       );
+       
+       
+      log(res.body);
+              await getAppliedRiders();
+
+      //  if(jsonDecode(res.body)['error']==null){
+      //   await getAppliedRiders();
+      //  }else{
+      //    CherryToast.error(
+      //     title: jsonDecode(res.body)['error'],
+      //   ).show(context);
+      //  }
+    } catch (e) {
+      log(e.toString());
+      
+    }
+//  await getAppliedRiders();
     isLoading = false;
 
     update();

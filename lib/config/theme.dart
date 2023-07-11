@@ -6,7 +6,7 @@ ThemeData theme() {
       color: Color.fromARGB(195, 62, 27, 100),
       titleTextStyle: TextStyle(color: Colors.white),
     ),
-    primaryColor: const Color.fromARGB(195, 62, 27, 100),
+    primaryColor: Color.fromARGB(195, 129, 73, 188),
     secondaryHeaderColor: const Color.fromARGB(15, 198, 15, 103),
     useMaterial3: true,
     // scaffoldBackgroundColor: Colors.white,

@@ -52,13 +52,13 @@ class SheduleController extends GetxController {
         title: Text('Error',
             style: TextStyle(
               color: Colors.red,
-              fontSize: 17,
+              fontSize: 13,
             )),
         description: Text(
           'Date Not Available, Please select a correct date',
-          style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                color: GlobalVariables.primaryColor,
-              ),
+          // style: Theme.of(context).textTheme.displaySmall!.copyWith(
+          //       color: GlobalVariables.primaryColor,
+          //     ),
         ),
       ).show(context);
     }
